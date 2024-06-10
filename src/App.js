@@ -18,6 +18,10 @@ import MaterialDetail from "./components/material/materialDetail/MaterialDetail"
 import EditMaterial from "./pages/editMaterial/EditMaterial";
 import Profile from "./pages/profile/Profile";
 import EditProfile from "./pages/profile/EditProfile";
+import AddReceipt from "./pages/addReceipt/AddReceipt";
+
+import ShowMaterial from "./pages/showMaterial/ShowMaterial"
+import AddClient from "./pages/addClient/AddClient";
 
 axios.defaults.withCredentials = true;
 
@@ -55,6 +59,22 @@ dispatch(SET_LOGIN(status))
             </Layout>
           </Sidebar>
         }/>
+        <Route path="/add-receipt/:id" element={
+          <Sidebar>
+            <Layout>
+              <AddReceipt/>
+            </Layout>
+          </Sidebar>
+        }/>
+
+        
+        <Route path="/show-material" element={
+          <Sidebar>
+            <Layout>
+              <ShowMaterial/>
+            </Layout>
+          </Sidebar>
+        }/>
         <Route path="/material-detail/:id" element={
           <Sidebar>
             <Layout>
@@ -66,6 +86,13 @@ dispatch(SET_LOGIN(status))
           <Sidebar>
             <Layout>
               <EditMaterial/>
+            </Layout>
+          </Sidebar>
+        }/>
+        <Route path="/add-client" element={
+          <Sidebar>
+            <Layout>
+              <AddClient/>
             </Layout>
           </Sidebar>
         }/>

@@ -4,6 +4,7 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
 const API_URL = `${BACKEND_URL}/api/materials/`;
 
+
 // Create New Material
 const createMaterial = async (formData) => {
   const response = await axios.post(API_URL, formData);
@@ -32,12 +33,15 @@ const updateMaterial = async (id, formData) => {
   return response.data;
 };
 
+
+
 const materialService = {
   createMaterial,
   getMaterials,
   getMaterial,
   deleteMaterial,
   updateMaterial,
+
 };
 
 export default materialService;

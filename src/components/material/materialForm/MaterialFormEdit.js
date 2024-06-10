@@ -4,7 +4,7 @@ import 'react-quill/dist/quill.snow.css'
 import "./MaterialForm.scss"
 import Card from '../../card/Card'
 
-const MaterialForm = ({material, materialImage, imagePreview, description, setDescription, handleInputChange, handleImageChange, saveMaterial}) => {
+const MaterialFormEdit = ({material, materialImage, imagePreview, description, setDescription, handleInputChange, handleImageChange, saveMaterial}) => {
   return (
     <div className='add-material'>
       <Card cardClass={"card"}>
@@ -25,11 +25,8 @@ const MaterialForm = ({material, materialImage, imagePreview, description, setDe
           <label >Category:</label>
           <input type="text" placeholder='Category' name="category" value={material?.category} onChange={handleInputChange} />
 
-          <label >Price:</label>
-          <input type="text" placeholder='Price' name="price" value={material?.price} onChange={handleInputChange} />
-
-          <label >Quantity:</label>
-          <input type="text" placeholder='Quantity' name="quantity" value={material?.quantity} onChange={handleInputChange} />
+         
+          
 
           <label >Description:</label>
           <ReactQuill theme="snow" value={description} onChange={setDescription} />
@@ -46,4 +43,4 @@ Save Material
   )
 }
 
-export default MaterialForm
+export default MaterialFormEdit

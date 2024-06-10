@@ -9,7 +9,7 @@ import { getUser } from "../../services/authService";
 import "./Profile.scss";
 
 const Profile = () => {
-    useRedirectLoggedOutUser("/login");
+    useRedirectLoggedOutUser("/");
   const dispatch = useDispatch();
 
   const [profile, setProfile] = useState(null);

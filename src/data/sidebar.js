@@ -11,9 +11,31 @@ const menu = [
     path: "/dashboard",
   },
   {
-    title: "Add material",
-    icon: <IoAddCircle />,
-    path: "/add-material",
+    title: "Material",
+    icon: <RiAccountCircleFill />,
+    childrens: [
+      {
+        title: "Add material",
+        path: "/add-material",
+      },
+      
+      {
+        title: "Material list",
+        path: "/show-material",
+      },
+    ],
+  },
+  {
+    title: "Client",
+    icon: <RiAccountCircleFill />,
+    childrens: [
+      {
+        title: "Add client",
+        path: "/add-client",
+      },
+      
+      
+    ],
   },
   {
     title: "Account",

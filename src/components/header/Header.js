@@ -18,7 +18,7 @@ navigate("/")
         <div className="--pad header">
             <div className="--flex-between">
                 <h3>
-                    <span className="--fw-thin">Welcom,</span>
+                    <span className="--fw-thin">Welcome,</span>
                     <span className="text-dark px-2">{name}</span>
                 </h3>
                 <button onClick={logout} className="--btn --btn-secondary">Logout</button>

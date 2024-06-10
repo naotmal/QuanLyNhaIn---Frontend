@@ -21,7 +21,7 @@ const initialState = {
 
 
 const Login = () => {
-    //useRedirectLoggedInUser("/dashboard")
+    useRedirectLoggedInUser("/dashboard")
     
     const dispatch = useDispatch()
     const navigate = useNavigate()

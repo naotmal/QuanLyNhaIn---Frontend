@@ -17,6 +17,7 @@ import {
   getMaterials,
 } from "../../../redux/features/material/materialSlice";
 import { Link } from "react-router-dom";
+import { AiFillFolderAdd } from "react-icons/ai";
 
 const MaterialList = ({ materials, isLoading }) => {
   const [search, setSearch] = useState("");
@@ -106,9 +107,9 @@ const MaterialList = ({ materials, isLoading }) => {
                   <th>s/n</th>
                   <th>Name</th>
                   <th>Category</th>
-                  <th>Price</th>
+    
                   <th>Quantity</th>
-                  <th>Value</th>
+                  
                   <th>Action</th>
                 </tr>
               </thead>
@@ -121,15 +122,9 @@ const MaterialList = ({ materials, isLoading }) => {
                       <td>{index + 1}</td>
                       <td>{shortenText(name, 16)}</td>
                       <td>{category}</td>
-                      <td>
-                        {"$"}
-                        {price}
-                      </td>
+                      
                       <td>{quantity}</td>
-                      <td>
-                        {"$"}
-                        {price * quantity}
-                      </td>
+                      
                       <td className="icons">
                         <span>
                           <Link to={`/material-detail/${_id}`}>
@@ -139,6 +134,11 @@ const MaterialList = ({ materials, isLoading }) => {
                         <span>
                           <Link to={`/edit-material/${_id}`}>
                             <FaEdit size={20} color={"green"} />
+                          </Link>
+                        </span>
+                        <span>
+                        <Link to={`/add-receipt/${_id}`}>
+                            <AiFillFolderAdd size={20} color={"blue"} />
                           </Link>
                         </span>
                         <span>

@@ -8,9 +8,10 @@ import Card from "../../card/Card";
 import { Spinner } from "../../loader/Loader";
 import "./MaterialDetail.scss";
 import DOMPurify from "dompurify";
+import ReceiptList from "../../receipt/receiptList/ReceiptList";
 
 const MaterialDetail = () => {
-  useRedirectLoggedOutUser("/login");
+  useRedirectLoggedOutUser("/");
   const dispatch = useDispatch();
 
   const { id } = useParams();
@@ -65,17 +66,11 @@ const MaterialDetail = () => {
             <p>
               <b>&rarr; Category : </b> {material.category}
             </p>
-            <p>
-              <b>&rarr; Price : </b> {"$"}
-              {material.price}
-            </p>
+            
             <p>
               <b>&rarr; Quantity in stock : </b> {material.quantity}
             </p>
-            <p>
-              <b>&rarr; Total Value in stock : </b> {"$"}
-              {material.price * material.quantity}
-            </p>
+            
             <hr />
             <div
               dangerouslySetInnerHTML={{
@@ -93,6 +88,7 @@ const MaterialDetail = () => {
           </div>
         )}
       </Card>
+      <ReceiptList/>
     </div>
   );
 };

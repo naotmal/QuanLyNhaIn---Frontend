@@ -109,6 +109,8 @@ export const updateMaterial = createAsyncThunk(
   }
 );
 
+
+
 const materialSlice = createSlice({
   name: "material",
   initialState,
@@ -234,6 +236,8 @@ const materialSlice = createSlice({
         state.message = action.payload;
         toast.error(action.payload);
       });
+
+      
   },
 });
 
@@ -242,6 +246,7 @@ export const { CALC_STORE_VALUE, CALC_OUTOFSTOCK, CALC_CATEGORY } =
 
 export const selectIsLoading = (state) => state.material.isLoading;
 export const selectMaterial = (state) => state.material.material;
+
 export const selectTotalStoreValue = (state) => state.material.totalStoreValue;
 export const selectOutOfStock = (state) => state.material.outOfStock;
 export const selectCategory = (state) => state.material.category;
