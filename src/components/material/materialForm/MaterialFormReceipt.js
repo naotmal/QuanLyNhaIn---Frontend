@@ -6,7 +6,7 @@ import Card from '../../card/Card'
 
 const MaterialFormReceipt = ({receipt, handleInputChange, saveReceipt}) => {
   return (
-    <div className='add-receipt'>
+    <div className='add-material '>
       <Card cardClass={"card"}>
         <form onSubmit={saveReceipt}>
           

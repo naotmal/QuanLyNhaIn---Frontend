@@ -2,7 +2,7 @@ import React from 'react'
 import Card from '../card/Card'
 
 const ClientForm = ({client, handleInputChange, saveClient}) => {
-  return <div className='add-client'>
+  return <div className='add-material'>
 <Card cardClass={"card"}>
     <form onSubmit={saveClient}>
         <label>Client name: </label>

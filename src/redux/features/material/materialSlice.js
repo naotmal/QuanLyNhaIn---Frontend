@@ -246,7 +246,7 @@ export const { CALC_STORE_VALUE, CALC_OUTOFSTOCK, CALC_CATEGORY } =
 
 export const selectIsLoading = (state) => state.material.isLoading;
 export const selectMaterial = (state) => state.material.material;
-
+export const selectName = (state) => state.material.material?.name;
 export const selectTotalStoreValue = (state) => state.material.totalStoreValue;
 export const selectOutOfStock = (state) => state.material.outOfStock;
 export const selectCategory = (state) => state.material.category;

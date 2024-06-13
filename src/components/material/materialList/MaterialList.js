@@ -81,7 +81,7 @@ const MaterialList = ({ materials, isLoading }) => {
 
   return (
     <div className="material-list">
-      <hr />
+      
       <div className="table">
         <div className="--flex-between --flex-dir-column">
           <span>
@@ -91,6 +91,7 @@ const MaterialList = ({ materials, isLoading }) => {
             <Search
               value={search}
               onChange={(e) => setSearch(e.target.value)}
+              placeHolder="Search material"
             />
           </span>
         </div>
@@ -116,7 +117,7 @@ const MaterialList = ({ materials, isLoading }) => {
 
               <tbody>
                 {currentItems.map((material, index) => {
-                  const { _id, name, category, price, quantity } = material;
+                  const { _id, name, category, quantity } = material;
                   return (
                     <tr key={_id}>
                       <td>{index + 1}</td>
@@ -125,26 +126,26 @@ const MaterialList = ({ materials, isLoading }) => {
                       
                       <td>{quantity}</td>
                       
-                      <td className="icons">
-                        <span>
-                          <Link to={`/material-detail/${_id}`}>
-                            <AiOutlineEye size={25} color={"purple"} />
+                      <td >
+                        <span className=" me-2">
+                          <Link className="icons" to={`/material-detail/${_id}`}>
+                            <AiOutlineEye size={25}  />
                           </Link>
                         </span>
-                        <span>
-                          <Link to={`/edit-material/${_id}`}>
-                            <FaEdit size={20} color={"green"} />
+                        <span className=" me-2">
+                          <Link className="icons" to={`/edit-material/${_id}`}>
+                            <FaEdit size={20}  />
                           </Link>
                         </span>
-                        <span>
-                        <Link to={`/add-receipt/${_id}`}>
-                            <AiFillFolderAdd size={20} color={"blue"} />
+                        <span className=" me-2">
+                        <Link className="icons" to={`/add-receipt/${_id}`}>
+                            <AiFillFolderAdd size={20}  />
                           </Link>
                         </span>
-                        <span>
+                        <span className="icons me-2">
                           <FaTrashAlt
                             size={20}
-                            color={"red"}
+                            
                             onClick={() => confirmDelete(_id)}
                           />
                         </span>

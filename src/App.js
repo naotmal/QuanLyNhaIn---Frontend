@@ -21,7 +21,16 @@ import EditProfile from "./pages/profile/EditProfile";
 import AddReceipt from "./pages/addReceipt/AddReceipt";
 
 import ShowMaterial from "./pages/showMaterial/ShowMaterial"
-import AddClient from "./pages/addClient/AddClient";
+import AddClient from "./pages/client/addClient/AddClient";
+import ShowClient from "./pages/client/showClient/ShowClient";
+import ShowReceipt from "./pages/addReceipt/ShowReceipt";
+import EditReceipt from "./pages/editReceipt/EditReceipt";
+import EditClient from "./pages/client/editClient/EditClient";
+import ClientDetail from "./components/client/clientDetail/ClientDetail"
+import AddTask from "./pages/addTask/AddTask";
+import ShowTask from "./pages/task/ShowTask";
+import EditTask from "./pages/task/EditTask";
+import TaskDetail from "./components/task/taskDetail/TaskDetail";
 
 axios.defaults.withCredentials = true;
 
@@ -52,6 +61,34 @@ dispatch(SET_LOGIN(status))
             </Layout>
           </Sidebar>
         }/>
+        <Route path="/add-task" element={
+          <Sidebar>
+            <Layout>
+              <AddTask/>
+            </Layout>
+          </Sidebar>
+        }/>
+        <Route path="/show-task" element={
+          <Sidebar>
+            <Layout>
+              <ShowTask/>
+            </Layout>
+          </Sidebar>
+        }/>
+        <Route path="/edit-task/:id" element={
+          <Sidebar>
+            <Layout>
+              <EditTask/>
+            </Layout>
+          </Sidebar>
+        }/>
+        <Route path="/task-detail/:id" element={
+          <Sidebar>
+            <Layout>
+              <TaskDetail/>
+            </Layout>
+          </Sidebar>
+        }/>
         <Route path="/add-material" element={
           <Sidebar>
             <Layout>
@@ -63,6 +100,20 @@ dispatch(SET_LOGIN(status))
           <Sidebar>
             <Layout>
               <AddReceipt/>
+            </Layout>
+          </Sidebar>
+        }/>
+        <Route path="/show-receipt" element={
+          <Sidebar>
+            <Layout>
+              <ShowReceipt/>
+            </Layout>
+          </Sidebar>
+        }/>
+        <Route path="/edit-receipt/:id" element={
+          <Sidebar>
+            <Layout>
+              <EditReceipt/>
             </Layout>
           </Sidebar>
         }/>
@@ -93,6 +144,27 @@ dispatch(SET_LOGIN(status))
           <Sidebar>
             <Layout>
               <AddClient/>
+            </Layout>
+          </Sidebar>
+        }/>
+        <Route path="/edit-client/:id" element={
+          <Sidebar>
+            <Layout>
+              <EditClient/>
+            </Layout>
+          </Sidebar>
+        }/>
+        <Route path="/show-client" element={
+          <Sidebar>
+            <Layout>
+              <ShowClient/>
+            </Layout>
+          </Sidebar>
+        }/>
+        <Route path="/client-detail/:id" element={
+          <Sidebar>
+            <Layout>
+              <ClientDetail/>
             </Layout>
           </Sidebar>
         }/>

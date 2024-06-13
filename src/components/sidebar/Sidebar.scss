@@ -62,8 +62,9 @@
   
   .sidebar-item:hover {
     background-color: #eee;
+    color: var(--color-primary);
   }
-  
+ 
   .sidebar-title {
     display: flex;
     font-size: 1.2em;
@@ -79,6 +80,8 @@
     transition: all 0.5s;
     font-size: 1.6rem;
   }
+
+  
   
   .sidebar-title span .icon {
     display: flex;

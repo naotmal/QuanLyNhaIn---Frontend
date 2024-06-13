@@ -1,46 +1,31 @@
 import React, { useEffect, useState } from "react";
-import { Spinner } from "../../loader/Loader";
-import "../../material/materialList/MaterialList.scss";
+import { Spinner } from "../components/loader/Loader";
+//import "../../material/materialList/MaterialList.scss";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { AiOutlineEye } from "react-icons/ai";
-import Search from "../../search/Search";
+import Search from "../components/search/Search";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  FILTER_RECEIPTS,
-  selectFilteredReceipts,
-
-} from "../../../redux/features/material/filterSlice";
+  FILTER_TASKS,
+  selectFilteredTasks,
+} from "../redux/features/material/filterSlice";
 import ReactPaginate from "react-paginate";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import {
-  deleteReceipt,
-  getReceipt,
-  getReceipts,
-  selectReceiptId
-} from "../../../redux/features/receipt/receiptSlice";
+  deleteTask,
+  getTasks,
+} from "../redux/features/task/TaskSlice";
 import { Link } from "react-router-dom";
 import { AiFillFolderAdd } from "react-icons/ai";
-import { getMaterials } from "../../../redux/features/material/materialSlice";
+import { getClients, selectClient } from "../redux/features/client/clientSlice";
 
-
-const ReceiptList = ({ receipts, isLoading }) => {
-  const { materials, isLoading: materialLoading, isError: materialError, message: materialMessage } = useSelector((state) => state.material);
+const TaskList = ({ tasks, isLoading }) => {
+    const clients = useSelector(selectClient)
   const [search, setSearch] = useState("");
-  const filteredReceipts = useSelector(selectFilteredReceipts);
+  const filteredTasks = useSelector(selectFilteredTasks);
+
   const dispatch = useDispatch();
-  useEffect(() => {
-    if (materials.length === 0) {
-      dispatch(getMaterials());
-    }
-  }, [dispatch, materials.length]);
-
-  const getMaterialName = (id) => {
-    const material = materials.find((material) => material._id === id);
-    return material ? material.name : "Unknown Material";
-  };
-
- 
 
   const shortenText = (text, n) => {
     if (text.length > n) {
@@ -49,29 +34,28 @@ const ReceiptList = ({ receipts, isLoading }) => {
     }
     return text;
   };
-const delReceipt = async(id)=>{
-  console.log(id)
-  await dispatch(deleteReceipt(id))
-  await dispatch(getReceipts())
-}
-const confirmDelete = (id) => {
-  confirmAlert({
-    title: "Delete Material",
-    message: "Are you sure you want to delete this material.",
-    buttons: [
-      {
-        label: "Delete",
-        onClick: () => delReceipt(id),
-      },
-      {
-        label: "Cancel",
-        // onClick: () => alert('Click No')
-      },
-    ],
-  });
-};
 
- 
+  const delTask = async(id)=>{
+    console.log(id)
+    await dispatch(deleteTask(id))
+    await dispatch(getTasks())
+  }
+  const confirmDelete = (id) => {
+    confirmAlert({
+      title: "Delete Material",
+      message: "Are you sure you want to delete this material.",
+      buttons: [
+        {
+          label: "Delete",
+          onClick: () => delTask(id),
+        },
+        {
+          label: "Cancel",
+          // onClick: () => alert('Click No')
+        },
+      ],
+    });
+  };
 
  
 
@@ -84,35 +68,53 @@ const confirmDelete = (id) => {
   useEffect(() => {
     const endOffset = itemOffset + itemsPerPage;
 
-    setCurrentItems(filteredReceipts.slice(itemOffset, endOffset));
-    setPageCount(Math.ceil(filteredReceipts.length / itemsPerPage));
-  }, [itemOffset, itemsPerPage, filteredReceipts]);
+    setCurrentItems(filteredTasks.slice(itemOffset, endOffset));
+    setPageCount(Math.ceil(filteredTasks.length / itemsPerPage));
+  }, [itemOffset, itemsPerPage, filteredTasks]);
 
   const handlePageClick = (event) => {
-    const newOffset = (event.selected * itemsPerPage) % filteredReceipts.length;
+    const newOffset = (event.selected * itemsPerPage) % filteredTasks.length;
     setItemOffset(newOffset);
   };
   //   End Pagination
 
   useEffect(() => {
-    dispatch(FILTER_RECEIPTS({ receipts, search }));
-  }, [receipts, search, dispatch]);
+    dispatch(FILTER_TASKS({ tasks, search }));
+  }, [tasks, search, dispatch]);
 
-  
-  
+  useEffect(()=>{
+    dispatch(getClients())
+  },[dispatch])
+
+  const getClientName = (clientId) =>{
+    const client = clients.find((client)=>client._id === clientId)
+    return client ? client.name: "Unknown"
+  }
+  const getProgressStatus = (progress) =>{
+    switch(progress){
+      case '1':
+        return 'Not Started';
+        case '2':
+        return 'To Do';
+        case '3':
+        return 'Doing';
+        case '4':
+        return 'Done';
+    }
+  }
   return (
-    <div className="receipt-list">
-     
+    <div className="task-list">
+      
       <div className="table">
         <div className="--flex-between --flex-dir-column">
           <span>
-            <h3>Receipt List</h3>
+            <h3>Task list</h3>
           </span>
           <span>
             <Search
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeHolder="Search reciept"
+              placeHolder="Search task"
             />
           </span>
         </div>
@@ -120,39 +122,47 @@ const confirmDelete = (id) => {
         {isLoading && <Spinner />}
 
         <div className="table d-flex">
-          {!isLoading && receipts.length === 0 ? (
-            <p>-- No receipt found, please add a receipt...</p>
+          {!isLoading && tasks.length === 0 ? (
+            <p>-- No task found, please add a task...</p>
           ) : (
             <table style={{width:"100%"}}>
               <thead>
                 <tr>
                   <th>s/n</th>
-                  <th>Material</th>
-                  <th>Quantity</th>
-                  <th>Created at</th>
+                  <th>Name</th>
+                  <th>Client</th>
     
-                 
+                  <th>Progress</th>
+                  
+                  <th>Quantity</th>
+                  <th>Unit</th>
+                  <th>Description</th>
                   <th>Action</th>
                 </tr>
               </thead>
 
               <tbody>
-                {currentItems.map((receipt, index) => {
-                  const { _id, quantity, createAt, materialId } = receipt;
+                {currentItems.map((task, index) => {
+                  const { _id, name, clientId, progress, quantity, unit, description } = task;
                   return (
                     <tr key={_id}>
                       <td>{index + 1}</td>
-                      <td>{getMaterialName(materialId)}</td>
+                      <td>{shortenText(name, 16)}</td>
+                      <td>{getClientName(clientId)}</td>
                       
+                      <td>{getProgressStatus(progress)}</td>
                       <td>{quantity}</td>
-                      <td>{new Date(createAt).toLocaleString("en-US")}</td>
-                      
-                     
+                      <td>{unit}</td>
+                      <td>{description}</td>
                       
                       <td >
-                        
                         <span className=" me-2">
-                          <Link className="icons" to={`/edit-receipt/${_id}`}>
+                          <Link className="icons" to={`/task-detail/${_id}`}>
+                            <AiOutlineEye size={25}  />
+                          </Link>
+                        </span>
+                        <span className=" me-2">
+                          <Link className="icons" to={`/edit-task/${_id}`}>
                             <FaEdit size={20}  />
                           </Link>
                         </span>
@@ -192,4 +202,4 @@ const confirmDelete = (id) => {
   );
 };
 
-export default ReceiptList;
+export default TaskList;

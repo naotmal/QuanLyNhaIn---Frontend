@@ -3,6 +3,9 @@ import { BiImageAdd } from "react-icons/bi";
 import { MdSpaceDashboard } from "react-icons/md";
 import { IoAddCircle } from "react-icons/io5";
 import { RiAccountCircleFill } from "react-icons/ri";
+import { MdInventory } from "react-icons/md";
+import { FaUserTie } from "react-icons/fa6";
+import { FaTasks } from "react-icons/fa";
 
 const menu = [
   {
@@ -11,8 +14,25 @@ const menu = [
     path: "/dashboard",
   },
   {
+    title: "Task",
+    icon: <FaTasks />,
+    childrens: [
+      {
+        title: "Add task",
+        path: "/add-task",
+      },
+      {
+        title: "Task list",
+        path: "/show-task",
+      },
+      
+      
+      
+    ],
+  },
+  {
     title: "Material",
-    icon: <RiAccountCircleFill />,
+    icon: <MdInventory />,
     childrens: [
       {
         title: "Add material",
@@ -23,15 +43,23 @@ const menu = [
         title: "Material list",
         path: "/show-material",
       },
+      {
+        title: "Receipt list",
+        path: "/show-receipt",
+      },
     ],
   },
   {
     title: "Client",
-    icon: <RiAccountCircleFill />,
+    icon: <FaUserTie />,
     childrens: [
       {
         title: "Add client",
         path: "/add-client",
+      },
+      {
+        title: "Client list",
+        path: "/show-client",
       },
       
       

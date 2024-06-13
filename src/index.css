@@ -495,7 +495,7 @@ a:hover {
   color: #fff;
   background-color: var(--light-blue);
 }
-.activePage {
+.activePage .page-num{
   color: #fff;
   background-color: var(--color-danger);
   

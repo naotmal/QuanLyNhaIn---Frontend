@@ -26,7 +26,15 @@ try{
 //login
 export const loginUser = async (userData) => {
     try{
-        const response = await axios.post(`${BACKEND_URL}/api/users/login`, userData)
+        
+        const response = await axios(`${BACKEND_URL}/api/users/`,{
+          method: "post",
+          data: userData,
+          headers: {
+              "Accept": "application/json",
+              "Content-Type": "application/json"
+          }
+      });
         if (response.statusText === "OK") {
             toast.success("Login successfuly")
         }

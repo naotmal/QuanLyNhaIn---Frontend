@@ -5,15 +5,16 @@ import MaterialSummary from "../../components/material/materialSummary/MaterialS
 import useRedirectLoggedOutUser from "../../customHook/useRediractLoggedOutUser";
 import { selectIsLoggedin } from "../../redux/features/auth/authSlice";
 import { getMaterials } from "../../redux/features/material/materialSlice";
+import ReceiptList from "../../components/receipt/receiptList/ReceiptList";
+import { getReceipts } from "../../redux/features/receipt/receiptSlice";
 
 const Dashboard = () => {
   useRedirectLoggedOutUser("/");
   const dispatch = useDispatch();
 
   const isLoggedin = useSelector(selectIsLoggedin);
-  const { materials, isLoading, isError, message } = useSelector(
-    (state) => state.material
-  );
+  const { materials, isLoading: materialLoading, isError: materialError, message: materialMessage } = useSelector((state) => state.material);
+  const { receipts, isLoading: receiptLoading, isError: receiptError, message: receiptMessage } = useSelector((state) => state.receipt);
 
   useEffect(() => {
     
@@ -22,15 +23,25 @@ const Dashboard = () => {
     
      }
 console.log(materials);
-    if (isError) {
-      console.log(message);
+    if (materialError) {
+      console.log(materialMessage);
     }
-  }, [isLoggedin, isError, message, dispatch, materials]);
+  }, [isLoggedin, materialError, materialMessage, dispatch, materials]);
+
+  useEffect(()=>{
+    if(isLoggedin===true){
+      dispatch(getReceipts())
+    }
+    if(receiptError){
+      console.log(receiptMessage)
+    }
+  }, [isLoggedin, receiptError, receiptMessage, dispatch, receipts])
 
   return (
     <div>
       <MaterialSummary materials={materials}  />
-      <MaterialList materials={materials} isLoading={isLoading} />
+      <MaterialList materials={materials} isLoading={materialLoading} />
+      <ReceiptList receipts={receipts} isLoading={receiptLoading}/>
     </div>
   );
 };

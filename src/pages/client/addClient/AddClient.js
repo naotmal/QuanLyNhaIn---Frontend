@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import ClientForm from '../../components/clientForm/ClientForm'
-import { createClient, selectIsLoading } from '../../redux/features/client/clientSlice'
+import ClientForm from '../../../components/clientForm/ClientForm'
+import { createClient, selectIsLoading } from '../../../redux/features/client/clientSlice'
 import { useDispatch, useSelector } from "react-redux"
+import {useNavigate} from "react-router-dom"
 
 const initialState={
     name: "",
@@ -13,7 +14,7 @@ const initialState={
 const AddClient = () => {
     const [client, setClient] = useState(initialState)
     const dispatch = useDispatch()
-    
+    const navigate = useNavigate()
 const isLoading = useSelector(selectIsLoading)
 
 const {name, email, phone, address} = client
@@ -35,7 +36,7 @@ const saveClient = async (e) =>{
 
     await dispatch(createClient(formData))
 
-    
+    navigate("/show-client")
 }
 
   return (<div>

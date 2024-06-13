@@ -57,7 +57,7 @@ const AddMaterial = () => {
 
         await dispatch(createMaterial(formData))
 
-        navigate("/dashboard")
+        navigate("/show-material")
     }
 
     return (
