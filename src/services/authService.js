@@ -110,7 +110,13 @@ export const resetPassword = async (userData, resetToken) => {
 
 export const getLoginStatus = async () => {
   try {
-    const response = await axios.get(`${BACKEND_URL}/api/users/loggedin`);
+    const response = await axios(`${BACKEND_URL}/api/users/loggedin`,{
+      method:"get",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+    }
+    });
     return response.data;
   } catch (error) {
     const message =
