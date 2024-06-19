@@ -25,7 +25,8 @@ const MaterialFormAdd = ({ material, materialImage, imagePreview, description, s
           <label >Category:</label>
           <input type="text" placeholder='Category' name="category" value={material?.category} onChange={handleInputChange} />
 
-
+          <label >Price:</label>
+          <input type="number" placeholder='Price' name="price" value={material?.price} onChange={handleInputChange} />
 
 
 
@@ -35,7 +36,7 @@ const MaterialFormAdd = ({ material, materialImage, imagePreview, description, s
             <button type="submit" className="--btn --btn-primary">
               Save Material
             </button>
-            console.log(error)
+            
           </div>
         </form>
 

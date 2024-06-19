@@ -6,6 +6,7 @@ import { RiAccountCircleFill } from "react-icons/ri";
 import { MdInventory } from "react-icons/md";
 import { FaUserTie } from "react-icons/fa6";
 import { FaTasks } from "react-icons/fa";
+import { FaTools } from "react-icons/fa";
 
 const Adminmenu = [
   {
@@ -56,6 +57,24 @@ const Adminmenu = [
         role: "Product",
         title: "Delivery list",
         path: "/show-delivery",
+      },
+   
+    ],
+  },
+  {
+    title: "Job",
+    icon: <FaTools />,
+    childrens: [
+      {
+        role: "Admin",
+        title: "Add job",
+        path: "/add-job",
+      },
+      
+      {
+        role: "Product",
+        title: "Job list",
+        path: "/show-job",
       },
    
     ],

@@ -110,14 +110,14 @@ const MaterialList = ({ materials, isLoading }) => {
                   <th>Category</th>
 
                   <th>Quantity</th>
-
+                  <th>Price</th>
                   <th>Action</th>
                 </tr>
               </thead>
 
               <tbody>
                 {currentItems.map((material, index) => {
-                  const { _id, name, category, quantity } = material;
+                  const { _id, name, category, quantity, price } = material;
                   return (
                     <tr key={_id}>
                       <td>{index + 1}</td>
@@ -125,6 +125,7 @@ const MaterialList = ({ materials, isLoading }) => {
                       <td>{category}</td>
 
                       <td>{quantity}</td>
+                      <td>{price}</td>
 
                       <td >
                         <span className=" me-2">

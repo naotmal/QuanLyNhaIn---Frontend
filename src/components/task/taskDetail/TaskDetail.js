@@ -94,9 +94,7 @@ const TaskDetail = () => {
                 <b>&rarr; Unit : </b> {task.unit}
               </p>
 
-              <p>
-                <b>&rarr; Description : </b> {task.description}
-              </p>
+              
 
               <hr />
               <div

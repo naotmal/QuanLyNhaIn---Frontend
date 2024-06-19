@@ -9,7 +9,7 @@ const DeliveryForm = ({ delivery, materials, handleInputChange, saveDelivery }) 
     <div className='add-delivery '>
       <Card cardClass={"card"}>
         <form onSubmit={saveDelivery}>
-          <select name="materialId" value={delivery?.materialId} disabled>
+          <select name="materialId" value={delivery?.materialId} disabled={true}>
             <option value="">Choose Material</option>
             {materials.map(material => (
               <option value={material._id} key={material._id}>{material.name}</option>
@@ -18,7 +18,7 @@ const DeliveryForm = ({ delivery, materials, handleInputChange, saveDelivery }) 
 
 
           <label >Quantity:</label>
-          <input type="text" placeholder='Quantity' name="quantity" value={delivery?.quantity} onChange={handleInputChange} />
+          <input type="number" placeholder='Quantity' name="quantity" value={delivery?.quantity} onChange={handleInputChange} />
 
 
 

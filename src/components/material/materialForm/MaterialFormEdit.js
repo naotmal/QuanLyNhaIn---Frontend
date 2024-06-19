@@ -24,7 +24,8 @@ const MaterialFormEdit = ({ material, materialImage, imagePreview, description, 
 
           <label >Category:</label>
           <input type="text" placeholder='Category' name="category" value={material?.category} onChange={handleInputChange} />
-
+          <label >Price:</label>
+          <input type="number" placeholder='Price' name="price" value={material?.price} onChange={handleInputChange} />
 
 
 

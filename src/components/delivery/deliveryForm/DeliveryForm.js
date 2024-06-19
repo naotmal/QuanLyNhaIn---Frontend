@@ -18,7 +18,7 @@ const DeliveryForm = ({ delivery, materials, handleInputChange, saveDelivery }) 
 
 
           <label >Quantity:</label>
-          <input type="text" placeholder='Quantity' name="quantity" value={delivery?.quantity} onChange={handleInputChange} />
+          <input type="number" placeholder='Quantity' name="quantity" value={delivery?.quantity} onChange={handleInputChange} />
 
 
 

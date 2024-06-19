@@ -139,14 +139,14 @@ const TaskList = ({ tasks, isLoading }) => {
                   <th>Change Progress</th>
                   <th>Quantity</th>
                   <th>Unit</th>
-                  
+                  <th>Price</th>
                   <th>Action</th>
                 </tr>
               </thead>
 
               <tbody>
                 {currentItems.map((task, index) => {
-                  const { _id, name, clientId, progress, quantity, unit} = task;
+                  const { _id, name, clientId, progress, quantity, unit, price} = task;
                   return (
                     <tr key={_id}>
                       <td>{index + 1}</td>
@@ -157,7 +157,7 @@ const TaskList = ({ tasks, isLoading }) => {
                       <td><ChangeProgress _id={_id}/></td>
                       <td>{quantity}</td>
                       <td>{unit}</td>
-                      
+                      <td>{price}</td>
                       
                       
                       <td >

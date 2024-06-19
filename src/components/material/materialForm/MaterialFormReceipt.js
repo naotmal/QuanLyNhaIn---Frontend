@@ -13,7 +13,7 @@ const MaterialFormReceipt = ({ receipt, handleInputChange, saveReceipt }) => {
 
 
           <label >Quantity:</label>
-          <input type="text" placeholder='Quantity' name="quantity" value={receipt?.quantity} onChange={handleInputChange} />
+          <input type="number" placeholder='Quantity' name="quantity" value={receipt?.quantity} onChange={handleInputChange} />
 
 
 

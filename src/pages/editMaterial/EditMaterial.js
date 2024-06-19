@@ -59,7 +59,7 @@ const saveMaterial = async (e) => {
   const formData = new FormData()
   formData.append("name", material?.name)
   formData.append("category", material?.category)
-
+  formData.append("price", material?.price)
 
   formData.append("description", description)
   if (materialImage){

@@ -11,6 +11,7 @@ const initialState = {
     name: "",
     category: "",
     description: "",
+    price: "",
 }
 
 const AddMaterial = () => {
@@ -23,7 +24,7 @@ const AddMaterial = () => {
 
     const isLoading = useSelector(selectIsLoading)
 
-    const { name, category } = material
+    const { name, category, price } = material
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -48,6 +49,7 @@ const AddMaterial = () => {
         formData.append("name", name)
         formData.append("sku", genterateSKU(category))
         formData.append("category", category)
+        formData.append("price", price)
 
 
         formData.append("description", description)

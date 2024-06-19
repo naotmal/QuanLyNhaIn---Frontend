@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import DeliveryForm from '../../components/delivery/deliveryForm/DeliveryForm'
+import DeliveryFormEdit from '../../components/delivery/deliveryForm/DeliveryForm'
 import { useState } from 'react'
 import { useDispatch, useSelector } from "react-redux"
 import { createDelivery, deleteDelivery, getDeliverybyMaterial, getDeliverybyTask, getSingleDelivery, selectDelivery, selectIsLoading, updateDelivery, selectDeliveryTask } from '../../redux/features/delivery/deliverySlice'
@@ -24,7 +24,7 @@ const EditDelivery = () => {
     const name = useSelector(selectName)
     const [delivery, setDelivery] = useState(deliveryEdit)
     
-    const taskId = useSelector(selectDeliveryTask)
+    const task = useSelector(selectDeliveryTask)
   
    
    
@@ -68,7 +68,7 @@ const EditDelivery = () => {
         // await dispatch(deleteDelivery(id))
         await dispatch(getDeliverybyTask())
         
-        //navigate(`/task-detail/${taskId}`)
+        //navigate("/show-task")
     }
 
     return (
@@ -78,7 +78,7 @@ const EditDelivery = () => {
             <span className="--fw-thin">Edit new material for </span>
             <span>{name}</span>
             </h3>
-            <DeliveryForm
+            <DeliveryFormEdit
                 delivery={delivery}
                 materials={materials}
                 

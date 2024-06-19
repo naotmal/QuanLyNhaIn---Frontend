@@ -35,6 +35,10 @@ import AddDelivery from "./pages/addTask/addDelivery/AddDelivery";
 import EditDelivery from "./pages/editDelivery/EditDelivery";
 import ShowAccount from "./pages/account/ShowAccount";
 import ShowDelivery from "./pages/showDelivery/ShowDelivery";
+import AddJob from "./pages/addJob/AddJob";
+import ShowJob from "./pages/showJob/ShowJob";
+import EditJob from "./pages/editJob/EditJob";
+import JobDetail from "./components/jobDetail/JobDetail";
 
 axios.defaults.withCredentials = true;
 
@@ -119,6 +123,34 @@ function App() {
           <Sidebar>
             <Layout>
               <AddMaterial />
+            </Layout>
+          </Sidebar>
+        } />
+        <Route path="/add-job" element={
+          <Sidebar>
+            <Layout>
+              <AddJob />
+            </Layout>
+          </Sidebar>
+        } />
+        <Route path="/show-job" element={
+          <Sidebar>
+            <Layout>
+              <ShowJob />
+            </Layout>
+          </Sidebar>
+        } />
+        <Route path="/edit-job/:id" element={
+          <Sidebar>
+            <Layout>
+              <EditJob />
+            </Layout>
+          </Sidebar>
+        } />
+        <Route path="/job-detail/:id" element={
+          <Sidebar>
+            <Layout>
+              <JobDetail />
             </Layout>
           </Sidebar>
         } />
