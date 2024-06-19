@@ -5,6 +5,7 @@ import filterReducer from "../redux/features/material/filterSlice";
 import receiptReducer from "../redux/features/receipt/receiptSlice"
 import clientReducer from "../redux/features/client/clientSlice"
 import taskReducer from "../redux/features/task/TaskSlice"
+import deliveryReducer from "../redux/features/delivery/deliverySlice"
 
 export const store = configureStore({
   reducer: {
@@ -14,5 +15,6 @@ export const store = configureStore({
     receipt: receiptReducer,
     client: clientReducer,
     task: taskReducer,
+    delivery: deliveryReducer,
   },
 });

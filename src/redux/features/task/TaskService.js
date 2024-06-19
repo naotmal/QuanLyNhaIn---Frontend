@@ -5,8 +5,8 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API_URL = `${BACKEND_URL}/api/tasks/`;
 
 //create task
-const createTask = async (formData) =>{
-    const response = await axios(API_URL,{
+const createTask = async (formData) => {
+    const response = await axios(API_URL, {
         method: "post",
         data: formData,
         headers: {
@@ -18,17 +18,17 @@ const createTask = async (formData) =>{
 }
 
 //Delete task
-const deleteTask = async (id)=>{
-    const response = await axios(`${API_URL}${id}`,{
-        method:"delete"
+const deleteTask = async (id) => {
+    const response = await axios(`${API_URL}${id}`, {
+        method: "delete"
     })
     return response.data
-  }
+}
 
-  //Get all tasks
-const getTasks = async()=>{
-    const response = await axios(API_URL,{
-        method:"get",
+//Get all tasks
+const getTasks = async () => {
+    const response = await axios(API_URL, {
+        method: "get",
         headers: {
             "Accept": "application/json",
             "Content-Type": "application/json"
@@ -39,9 +39,21 @@ const getTasks = async()=>{
 }
 
 //Get a task
-const getTask = async(id) =>{
-    const response = await axios(`${API_URL}${id}`,{
-        method:"get",
+const getTask = async (taskId) => {
+    const response = await axios(`${API_URL}single/${taskId}`, {
+        method: "get",
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        }
+    })
+    return response.data
+}
+
+//Get task by client
+const getTaskbyClient = async (clientId) => {
+    const response = await axios(`${API_URL}${clientId}`, {
+        method: "get",
         headers: {
             "Accept": "application/json",
             "Content-Type": "application/json"
@@ -51,9 +63,9 @@ const getTask = async(id) =>{
 }
 
 //update task
-const updateTask = async (id, formData) =>{
-    const response = await axios(`${API_URL}${id}`,{
-        method:"patch",
+const updateTask = async (id, formData) => {
+    const response = await axios(`${API_URL}${id}`, {
+        method: "patch",
         data: formData,
         headers: {
             "Accept": "application/json",
@@ -63,12 +75,27 @@ const updateTask = async (id, formData) =>{
     return response.data
 }
 
-const taskService ={
+//change progress
+const changeProgress = async (taskData) => {
+    const response = await axios(`${BACKEND_URL}/api/tasks/changeprogress`, {
+        method: "post",
+        data: taskData,
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        }
+    })
+    return response.data.messaage;
+}
+
+const taskService = {
     createTask,
     deleteTask,
     getTasks,
     getTask,
     updateTask,
+    getTaskbyClient,
+    changeProgress,
 }
 
 export default taskService;

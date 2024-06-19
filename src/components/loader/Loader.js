@@ -13,8 +13,8 @@ const Loader = () => {
     )
 }
 
-export const Spinner = () =>{
-    return(
+export const Spinner = () => {
+    return (
         <div className="--center-all">
             <img src="loaderGif" alt="" className="" />
         </div>

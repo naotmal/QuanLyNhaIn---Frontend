@@ -1,12 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from "./auth.module.scss"
 import Card from "../../components/card/Card"
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from "react-toastify"
 import { validateEmail } from '../../services/authService'
-import { registerUser } from '../../services/authService'
-import { SET_LOGIN, SET_NAME } from '../../redux/features/auth/authSlice'
-import { useDispatch } from 'react-redux'
+import { registerUser } from '../../redux/features/auth/authSlice'
+import { SET_LOGIN, SET_NAME, RESET } from '../../redux/features/auth/authSlice'
+import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../../components/loader/Loader'
 
 
@@ -26,6 +26,7 @@ const Register = () => {
   const [formData, setformData] = useState(initialState)
   const { name, email, password, confirmpassword } = formData
 
+  const {isLoading: reduxLoading, isLoggedIn, isSuccess, message} = useSelector((state)=> state.auth)
 
 
   const handleInputChange = (e) => {
@@ -49,7 +50,7 @@ const Register = () => {
     }
 
     const userData = {
-      name, email, password
+      name, email, password,
     }
     setIsLoading(true)
     try {
@@ -62,7 +63,15 @@ const Register = () => {
       setIsLoading(false)
      
     }
-  }
+    await dispatch(registerUser(userData))
+  };
+
+  useEffect(()=>{
+    if(isSuccess && isLoggedIn){
+      navigate("/dashboard")
+    }
+    dispatch(RESET())
+  },[isLoggedIn, isSuccess, dispatch, navigate])
 
   return (
     <div className={`container ${styles.auth}`}>

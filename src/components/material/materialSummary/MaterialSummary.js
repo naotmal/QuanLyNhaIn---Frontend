@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import "./MaterialSummary.scss";
+
 import { AiFillDollarCircle } from "react-icons/ai";
 import { BsCart4, BsCartX } from "react-icons/bs";
 import { BiCategory } from "react-icons/bi";
@@ -15,10 +15,10 @@ import {
 } from "../../../redux/features/material/materialSlice";
 
 // Icons
-const earningIcon = <AiFillDollarCircle size={40} color="#fff" />;
-const materialIcon = <BsCart4 size={40} color="#fff" />;
-const categoryIcon = <BiCategory size={40} color="#fff" />;
-const outOfStockIcon = <BsCartX size={40} color="#fff" />;
+const earningIcon = <AiFillDollarCircle size={40} />;
+const materialIcon = <BsCart4 size={40} />;
+const categoryIcon = <BiCategory size={40} />;
+const outOfStockIcon = <BsCartX size={40} />;
 
 // Format Amount
 export const formatNumbers = (x) => {
@@ -45,25 +45,20 @@ const MaterialSummary = ({ materials }) => {
           icon={materialIcon}
           title={"Total Materials"}
           count={materials.length}
-          bgColor="card1"
+
         />
-        <InfoBox
-          icon={earningIcon}
-          title={"Total Store Value"}
-          count={`$${formatNumbers(totalStoreValue.toFixed(2))}  `}
-          bgColor="card2"
-        />
+
         <InfoBox
           icon={outOfStockIcon}
           title={"Out of Stock"}
           count={outOfStock}
-          bgColor="card3"
+
         />
         <InfoBox
           icon={categoryIcon}
           title={"All Categories"}
           count={category.length}
-          bgColor="card4"
+
         />
       </div>
     </div>

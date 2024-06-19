@@ -1,29 +1,32 @@
 .client-detail {
-    margin-bottom: 5rem;
-    
-    
-    .card {
-      width: 100%;
-      
-      padding: 2rem;
+  margin-bottom: 5rem;
+
+
+  .card {
+    width: 100%;
+
+    padding: 2rem;
+  }
+
+  .detail {
+    &>* {
+      margin-bottom: 1rem;
     }
-    .detail {
-      & > * {
-        margin-bottom: 1rem;
-      }
-      .badge {
-        color: var(--dark-blue);
-        padding-left: 2px;
-        padding-right: 2px;
-        border-radius: 3px;
-      }
-      p b {
-        color: var(--dark-blue);
-      }
+
+    .badge {
+      color: var(--dark-blue);
+      padding-left: 2px;
+      padding-right: 2px;
+      border-radius: 3px;
+    }
+
+    p b {
+      color: var(--dark-blue);
     }
   }
-  
-  .group {
-    border: 1px solid var(--dark-blue);
-    padding: 5px;
-  }
+}
+
+.group {
+  border: 1px solid var(--dark-blue);
+  padding: 5px;
+}

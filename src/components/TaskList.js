@@ -12,16 +12,19 @@ import {
 import ReactPaginate from "react-paginate";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
+import "./TaskList.scss"
 import {
   deleteTask,
   getTasks,
 } from "../redux/features/task/TaskSlice";
 import { Link } from "react-router-dom";
 import { AiFillFolderAdd } from "react-icons/ai";
-import { getClients, selectClient } from "../redux/features/client/clientSlice";
+
+import { getClients, selectClients } from "../redux/features/client/clientSlice";
+import ChangeProgress from "./changeProgress/ChangeProgress";
 
 const TaskList = ({ tasks, isLoading }) => {
-    const clients = useSelector(selectClient)
+    const clients = useSelector(selectClients)
   const [search, setSearch] = useState("");
   const filteredTasks = useSelector(selectFilteredTasks);
 
@@ -133,17 +136,17 @@ const TaskList = ({ tasks, isLoading }) => {
                   <th>Client</th>
     
                   <th>Progress</th>
-                  
+                  <th>Change Progress</th>
                   <th>Quantity</th>
                   <th>Unit</th>
-                  <th>Description</th>
+                  
                   <th>Action</th>
                 </tr>
               </thead>
 
               <tbody>
                 {currentItems.map((task, index) => {
-                  const { _id, name, clientId, progress, quantity, unit, description } = task;
+                  const { _id, name, clientId, progress, quantity, unit} = task;
                   return (
                     <tr key={_id}>
                       <td>{index + 1}</td>
@@ -151,9 +154,11 @@ const TaskList = ({ tasks, isLoading }) => {
                       <td>{getClientName(clientId)}</td>
                       
                       <td>{getProgressStatus(progress)}</td>
+                      <td><ChangeProgress _id={_id}/></td>
                       <td>{quantity}</td>
                       <td>{unit}</td>
-                      <td>{description}</td>
+                      
+                      
                       
                       <td >
                         <span className=" me-2">
@@ -166,7 +171,11 @@ const TaskList = ({ tasks, isLoading }) => {
                             <FaEdit size={20}  />
                           </Link>
                         </span>
-                        
+                        <span className=" me-2">
+                        <Link className="icons" to={`/add-delivery/${_id}`}>
+                            <AiFillFolderAdd size={20}  />
+                          </Link>
+                        </span>
                         <span className="icons me-2">
                           <FaTrashAlt
                             size={20}

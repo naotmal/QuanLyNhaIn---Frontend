@@ -1,4 +1,4 @@
-import  { BrowserRouter, Routes, Route} from "react-router-dom"
+import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Login from "./pages/auth/Login";
 import Reset from "./pages/auth/Reset";
 import Register from "./pages/auth/Register";
@@ -31,160 +31,194 @@ import AddTask from "./pages/addTask/AddTask";
 import ShowTask from "./pages/task/ShowTask";
 import EditTask from "./pages/task/EditTask";
 import TaskDetail from "./components/task/taskDetail/TaskDetail";
+import AddDelivery from "./pages/addTask/addDelivery/AddDelivery";
+import EditDelivery from "./pages/editDelivery/EditDelivery";
+import ShowAccount from "./pages/account/ShowAccount";
+import ShowDelivery from "./pages/showDelivery/ShowDelivery";
 
 axios.defaults.withCredentials = true;
 
 function App() {
   const dispatch = useDispatch()
 
-  useEffect(()=>{
+  useEffect(() => {
     async function loginStatus() {
       const status = await getLoginStatus()
-dispatch(SET_LOGIN(status))
+      dispatch(SET_LOGIN(status))
     }
     loginStatus()
 
-  },[dispatch])
+  }, [dispatch])
   return (
     <BrowserRouter>
-    <ToastContainer/>
+      <ToastContainer />
       <Routes>
-        <Route path="/" element={<Login/>}/>
-        <Route path="/resetpassword/:resetToken" element={<Reset/>}/>
-        <Route path="/register" element={<Register/>}/>
-        <Route path="/forgotpassword/" element={<Forgot/>}/>
+        <Route path="/" element={<Login />} />
+        <Route path="/resetpassword/:resetToken" element={<Reset />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/forgotpassword/" element={<Forgot />} />
 
         <Route path="/dashboard" element={
           <Sidebar>
             <Layout>
-              <Dashboard/>
+              <Dashboard />
             </Layout>
           </Sidebar>
-        }/>
+        } />
         <Route path="/add-task" element={
           <Sidebar>
             <Layout>
-              <AddTask/>
+              <AddTask />
             </Layout>
           </Sidebar>
-        }/>
+        } />
         <Route path="/show-task" element={
           <Sidebar>
             <Layout>
-              <ShowTask/>
+              <ShowTask />
             </Layout>
           </Sidebar>
-        }/>
+        } />
         <Route path="/edit-task/:id" element={
           <Sidebar>
             <Layout>
-              <EditTask/>
+              <EditTask />
             </Layout>
           </Sidebar>
-        }/>
+        } />
+
+        <Route path="/add-delivery/:id" element={
+          <Sidebar>
+            <Layout>
+              <AddDelivery />
+            </Layout>
+          </Sidebar>
+        } />
+        <Route path="/show-delivery" element={
+          <Sidebar>
+            <Layout>
+              <ShowDelivery />
+            </Layout>
+          </Sidebar>
+        } />
+        <Route path="/edit-delivery/:id" element={
+          <Sidebar>
+            <Layout>
+              <EditDelivery />
+            </Layout>
+          </Sidebar>
+        } />
         <Route path="/task-detail/:id" element={
           <Sidebar>
             <Layout>
-              <TaskDetail/>
+              <TaskDetail />
             </Layout>
           </Sidebar>
-        }/>
+        } />
         <Route path="/add-material" element={
           <Sidebar>
             <Layout>
-              <AddMaterial/>
+              <AddMaterial />
             </Layout>
           </Sidebar>
-        }/>
+        } />
         <Route path="/add-receipt/:id" element={
           <Sidebar>
             <Layout>
-              <AddReceipt/>
+              <AddReceipt />
             </Layout>
           </Sidebar>
-        }/>
+        } />
         <Route path="/show-receipt" element={
           <Sidebar>
             <Layout>
-              <ShowReceipt/>
+              <ShowReceipt />
             </Layout>
           </Sidebar>
-        }/>
+        } />
         <Route path="/edit-receipt/:id" element={
           <Sidebar>
             <Layout>
-              <EditReceipt/>
+              <EditReceipt />
             </Layout>
           </Sidebar>
-        }/>
+        } />
 
-        
+
         <Route path="/show-material" element={
           <Sidebar>
             <Layout>
-              <ShowMaterial/>
+              <ShowMaterial />
             </Layout>
           </Sidebar>
-        }/>
+        } />
         <Route path="/material-detail/:id" element={
           <Sidebar>
             <Layout>
-              <MaterialDetail/>
+              <MaterialDetail />
             </Layout>
           </Sidebar>
-        }/>
+        } />
         <Route path="/edit-material/:id" element={
           <Sidebar>
             <Layout>
-              <EditMaterial/>
+              <EditMaterial />
             </Layout>
           </Sidebar>
-        }/>
+        } />
         <Route path="/add-client" element={
           <Sidebar>
             <Layout>
-              <AddClient/>
+              <AddClient />
             </Layout>
           </Sidebar>
-        }/>
+        } />
         <Route path="/edit-client/:id" element={
           <Sidebar>
             <Layout>
-              <EditClient/>
+              <EditClient />
             </Layout>
           </Sidebar>
-        }/>
+        } />
         <Route path="/show-client" element={
           <Sidebar>
             <Layout>
-              <ShowClient/>
+              <ShowClient />
             </Layout>
           </Sidebar>
-        }/>
+        } />
         <Route path="/client-detail/:id" element={
           <Sidebar>
             <Layout>
-              <ClientDetail/>
+              <ClientDetail />
             </Layout>
           </Sidebar>
-        }/>
+        } />
         <Route path="/profile" element={
           <Sidebar>
             <Layout>
-              <Profile/>
+              <Profile />
             </Layout>
           </Sidebar>
-        }/>
+        } />
         <Route path="/edit-profile" element={
           <Sidebar>
             <Layout>
-              <EditProfile/>
+              <EditProfile />
             </Layout>
           </Sidebar>
-        }/>
+        } />
+        <Route path="/show-account" element={
+          <Sidebar>
+            <Layout>
+              <ShowAccount />
+            </Layout>
+          </Sidebar>
+        } />
       </Routes>
-      
-      
+
+
+
     </BrowserRouter>
   );
 }

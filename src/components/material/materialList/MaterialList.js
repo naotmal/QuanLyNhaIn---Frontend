@@ -81,11 +81,11 @@ const MaterialList = ({ materials, isLoading }) => {
 
   return (
     <div className="material-list">
-      
+
       <div className="table">
         <div className="--flex-between --flex-dir-column">
           <span>
-            <h3>Inventory Items</h3>
+            <h3>Material List</h3>
           </span>
           <span>
             <Search
@@ -102,15 +102,15 @@ const MaterialList = ({ materials, isLoading }) => {
           {!isLoading && materials.length === 0 ? (
             <p>-- No material found, please add a material...</p>
           ) : (
-            <table style={{width:"100%"}}>
+            <table style={{ width: "100%" }}>
               <thead>
                 <tr>
                   <th>s/n</th>
                   <th>Name</th>
                   <th>Category</th>
-    
+
                   <th>Quantity</th>
-                  
+
                   <th>Action</th>
                 </tr>
               </thead>
@@ -123,29 +123,29 @@ const MaterialList = ({ materials, isLoading }) => {
                       <td>{index + 1}</td>
                       <td>{shortenText(name, 16)}</td>
                       <td>{category}</td>
-                      
+
                       <td>{quantity}</td>
-                      
+
                       <td >
                         <span className=" me-2">
                           <Link className="icons" to={`/material-detail/${_id}`}>
-                            <AiOutlineEye size={25}  />
+                            <AiOutlineEye size={25} />
                           </Link>
                         </span>
                         <span className=" me-2">
                           <Link className="icons" to={`/edit-material/${_id}`}>
-                            <FaEdit size={20}  />
+                            <FaEdit size={20} />
                           </Link>
                         </span>
                         <span className=" me-2">
-                        <Link className="icons" to={`/add-receipt/${_id}`}>
-                            <AiFillFolderAdd size={20}  />
+                          <Link className="icons" to={`/add-receipt/${_id}`}>
+                            <AiFillFolderAdd size={20} />
                           </Link>
                         </span>
                         <span className="icons me-2">
                           <FaTrashAlt
                             size={20}
-                            
+
                             onClick={() => confirmDelete(_id)}
                           />
                         </span>
@@ -161,7 +161,7 @@ const MaterialList = ({ materials, isLoading }) => {
           breakLabel="..."
           nextLabel="Next"
           onPageChange={handlePageClick}
-       
+
           pageRangeDisplayed={3}
           pageCount={pageCount}
           previousLabel="Prev"

@@ -7,33 +7,45 @@ import { getClient } from '../../../redux/features/client/clientSlice'
 import { Spinner } from '../../loader/Loader'
 import Card from "../../card/Card"
 import "./ClientDetail.scss"
+import { getTaskbyClient, getTasks } from '../../../redux/features/task/TaskSlice'
+import TaskList from '../../TaskList'
 
 const ClientDetail = () => {
   useRedirectLoggedOutUser("/")
   const dispatch = useDispatch()
-  const {id} = useParams()
+  const { id } = useParams()
 
   const isLoggedIn = useSelector(selectIsLoggedin)
-  const {client, isLoading: clientLoading, isError: clientError, message: clientMessage} = useSelector((state)=>state.client)
-  
-  useEffect(()=>{
-    if(isLoggedIn === true) {
+  const { client, isLoading: clientLoading, isError: clientError, message: clientMessage } = useSelector((state) => state.client)
+  const { tasks, isLoading: taskLoading, isError: taskError, message: taskMessage } = useSelector((state) => state.task)
+  useEffect(() => {
+    if (isLoggedIn === true) {
       dispatch(getClient(id))
     }
-    if(clientError){
+    if (clientError) {
       console.log(clientMessage);
     }
-  },[isLoggedIn, clientError, clientMessage, dispatch, id])
+  }, [isLoggedIn, clientError, clientMessage, dispatch, id])
 
-  
+  useEffect(() => {
+
+    if (isLoggedIn === true) {
+      dispatch(getTaskbyClient(id));
+
+    }
+    console.log(tasks);
+    if (taskError) {
+      console.log(taskMessage);
+    }
+  }, [isLoggedIn, taskError, taskMessage, dispatch, tasks, id]);
 
   return (
     <div className="row">
       <div className="client-detail col-4">
         <h3 className="--mt">Client detail</h3>
         <Card cardClass="card">
-          {clientLoading && <Spinner/>}
-          {client &&(
+          {clientLoading && <Spinner />}
+          {client && (
             <div className="detail">
               <h4>
                 <span className="badge">Name: </span> &nbsp; {client.name}
@@ -50,6 +62,9 @@ const ClientDetail = () => {
             </div>
           )}
         </Card>
+      </div>
+      <div className="col-8">
+        <TaskList tasks={tasks} isLoading={taskLoading} />
       </div>
     </div>
   )

@@ -5,7 +5,9 @@ import { useNavigate } from 'react-router-dom'
 import { selectIsLoading, createTask } from '../../redux/features/task/TaskSlice'
 import Loader from '../../components/loader/Loader'
 import TaskForm from '../../components/task/taskForm/TaskForm'
-import { getClients, selectClient } from '../../redux/features/client/clientSlice'
+import { getClients, selectClients } from '../../redux/features/client/clientSlice'
+import {getMaterials, selectMaterials} from '../../redux/features/material/materialSlice'
+import {createDelivery} from '../../redux/features/delivery/deliverySlice'
 
 const initialState={
     name:"",
@@ -24,12 +26,14 @@ const API_URL = `${BACKEND_URL}/api/tasks/`;
 const AddTask = () => {
     const [task, setTask] = useState(initialState)
     const [description, setDescription] = useState("")
+    const [materialId, setMaterialId] = useState("")
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
     const isLoading = useSelector(selectIsLoading)
-    const clients = useSelector(selectClient) || []
+    const clients = useSelector(selectClients) || []
+    const materials = useSelector(selectMaterials) || []
 
 
 
@@ -39,8 +43,13 @@ const AddTask = () => {
     }
 useEffect(()=>{
     dispatch(getClients())
+    dispatch(getMaterials())
     
 },[dispatch])
+const handleMaterialChange = (e) =>{
+    setMaterialId(e.target.value)
+}
+
 useEffect(() => {
     console.log("Fetched Clients: ", clients) // Debugging: Log the fetched clients
 }, [clients])
@@ -55,12 +64,16 @@ useEffect(() => {
         formData.append("quantity", task.quantity)
         formData.append("unit", task.unit)
         formData.append("description", description)
-
-      
+        const result = await dispatch(createTask(formData))
+        const taskId = result.payload?.id
+        
+        if(taskId && materialId){
+            await dispatch(createDelivery({taskId, materialId}))
+        }
 
     
-    await dispatch(createTask(formData))
-    //navigate("/show-task")
+
+    navigate("/show-task")
 
 
         
@@ -78,6 +91,7 @@ useEffect(() => {
         handleInputChange={handleInputChange}
         saveTask={saveTask}
         />
+        
     </div>
   )
 }

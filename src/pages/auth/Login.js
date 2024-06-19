@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { toast } from 'react-toastify'
 import { loginUser, validateEmail } from '../../services/authService'
-import { SET_LOGIN, SET_NAME } from '../../redux/features/auth/authSlice'
+import { SET_LOGIN, SET_NAME, SET_ROLE } from '../../redux/features/auth/authSlice'
 import Loader from '../../components/loader/Loader'
 import useRedirectLoggedInUser from '../../customHook/useRediractLoggedInUser copy'
 
@@ -51,6 +51,7 @@ const Login = () => {
             console.log(data)
             await dispatch(SET_LOGIN(true))
             await dispatch(SET_NAME(data.name))
+            await dispatch(SET_ROLE(data.role))
             navigate("/dashboard")
             setIsLoading(false)
         } catch (error) {

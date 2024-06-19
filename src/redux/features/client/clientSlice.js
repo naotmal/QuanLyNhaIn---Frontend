@@ -202,7 +202,8 @@ export const {CALC_CLIENT_VALUE} = clientSlice.actions
 
 
 export const selectIsLoading = (state) => state.client.isLoading;
-export const selectClient = (state) => state.client.clients;
+export const selectClient = (state) => state.client.client;
+export const selectClients = (state) => state.client.clients;
 
 export const selectClientId = (state) => state.client._id;
 export default clientSlice.reducer

@@ -7,12 +7,12 @@ import { SET_LOGIN, selectName } from '../../redux/features/auth/authSlice'
 const Header = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
-const name = useSelector(selectName)
+    const name = useSelector(selectName)
 
-    const logout = async()=>{
-await logoutUser();
-await dispatch(SET_LOGIN(false))
-navigate("/")
+    const logout = async () => {
+        await logoutUser();
+        await dispatch(SET_LOGIN(false))
+        navigate("/")
     }
     return (
         <div className="--pad header">

@@ -5,7 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { selectIsLoading, createTask, selectTask, getTask, updateTask, getTasks } from '../../redux/features/task/TaskSlice'
 import Loader from '../../components/loader/Loader'
 import TaskForm from '../../components/task/taskForm/TaskForm'
-import { getClients, selectClient } from '../../redux/features/client/clientSlice'
+import { getClients, selectClients } from '../../redux/features/client/clientSlice'
 
 const initialState={
     name:"",
@@ -32,7 +32,7 @@ const EditTask = () => {
     const dispatch = useDispatch()
 
     const isLoading = useSelector(selectIsLoading)
-    const clients = useSelector(selectClient) || []
+    const clients = useSelector(selectClients) || []
 
 useEffect(()=>{
     dispatch(getTask(id))
@@ -61,11 +61,11 @@ useEffect(() => {
     const saveTask = async (e) =>{
         e.preventDefault();
         const formData = new FormData()
-        formData.append("name", task.name)
-        formData.append("progress", task.progress)
-        formData.append("clientId", task.clientId)
-        formData.append("quantity", task.quantity)
-        formData.append("unit", task.unit)
+        formData.append("name", task?.name)
+        formData.append("progress", task?.progress)
+        formData.append("clientId", task?.clientId)
+        formData.append("quantity", task?.quantity)
+        formData.append("unit", task?.unit)
         formData.append("description", description)
 
       

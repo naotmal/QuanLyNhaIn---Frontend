@@ -9,7 +9,9 @@ import { Spinner } from "../../loader/Loader";
 import "./MaterialDetail.scss";
 import DOMPurify from "dompurify";
 import ReceiptList from "../../receipt/receiptList/ReceiptList";
+import DeliveryList from "../../delivery/deliveryList/DeliveryList";
 import { getReceipt } from "../../../redux/features/receipt/receiptSlice";
+import { getDeliverybyMaterial } from "../../../redux/features/delivery/deliverySlice";
 
 
 const MaterialDetail = () => {
@@ -21,7 +23,7 @@ const MaterialDetail = () => {
   const isLoggedIn = useSelector(selectIsLoggedin);
   const { material, isLoading: materialLoading, isError: materialError, message: materialMessage } = useSelector((state) => state.material);
   const { receipts, isLoading: receiptLoading, isError: receiptError, message: receiptMessage } = useSelector((state) => state.receipt);
-
+  const { deliveries, isLoading: deliveryLoading, isError: deliveryError, messaage: deliveryMessage } = useSelector((state) => state.delivery);
 
   const stockStatus = (quantity) => {
     if (quantity > 0) {
@@ -40,8 +42,8 @@ const MaterialDetail = () => {
       console.log(materialMessage);
     }
   }, [isLoggedIn, materialError, materialMessage, dispatch, id]);
-  
-  
+
+
   useEffect(() => {
     if (isLoggedIn === true) {
       dispatch(getReceipt(id)); // Assuming this action fetches receipts by material ID
@@ -51,7 +53,14 @@ const MaterialDetail = () => {
     }
   }, [isLoggedIn, receiptError, receiptMessage, dispatch, id]);
 
-
+  useEffect(() => {
+    if (isLoggedIn === true) {
+      dispatch(getDeliverybyMaterial(id)); // Assuming this action fetches receipts by material ID
+    }
+    if (deliveryError) {
+      console.log(deliveryMessage);
+    }
+  }, [isLoggedIn, deliveryError, deliveryMessage, dispatch, id]);
 
   return (
     <div className="row ">
@@ -95,11 +104,11 @@ const MaterialDetail = () => {
               ></div>
               <hr />
               <code className="--color-dark">
-                Created on: {material.createdAt.toLocaleString("en-US")}
+                Created on: {new Date(material.createdAt).toLocaleDateString("vi-VN")}
               </code>
               <br />
               <code className="--color-dark">
-                Last Updated: {material.updatedAt.toLocaleString("en-US")}
+                Last Updated: {new Date(material.updatedAt).toLocaleDateString("vi-VN")}
               </code>
             </div>
           )}
@@ -107,6 +116,7 @@ const MaterialDetail = () => {
       </div>
       <div className="receipt-list col-8">
         <ReceiptList receipts={receipts} isLoading={receiptLoading} />
+        <DeliveryList deliveries={deliveries} isLoading={deliveryLoading} />
       </div>
     </div>
 

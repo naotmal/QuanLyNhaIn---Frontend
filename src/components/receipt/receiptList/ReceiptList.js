@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Spinner } from "../../loader/Loader";
-import "../../material/materialList/MaterialList.scss";
+import "./ReceiptList.scss"
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { AiOutlineEye } from "react-icons/ai";
 import Search from "../../search/Search";
@@ -40,7 +40,7 @@ const ReceiptList = ({ receipts, isLoading }) => {
     return material ? material.name : "Unknown Material";
   };
 
- 
+
 
   const shortenText = (text, n) => {
     if (text.length > n) {
@@ -49,31 +49,31 @@ const ReceiptList = ({ receipts, isLoading }) => {
     }
     return text;
   };
-const delReceipt = async(id)=>{
-  console.log(id)
-  await dispatch(deleteReceipt(id))
-  await dispatch(getReceipts())
-}
-const confirmDelete = (id) => {
-  confirmAlert({
-    title: "Delete Material",
-    message: "Are you sure you want to delete this material.",
-    buttons: [
-      {
-        label: "Delete",
-        onClick: () => delReceipt(id),
-      },
-      {
-        label: "Cancel",
-        // onClick: () => alert('Click No')
-      },
-    ],
-  });
-};
+  const delReceipt = async (id) => {
+    console.log(id)
+    await dispatch(deleteReceipt(id))
+    await dispatch(getReceipts())
+  }
+  const confirmDelete = (id) => {
+    confirmAlert({
+      title: "Delete Material",
+      message: "Are you sure you want to delete this material.",
+      buttons: [
+        {
+          label: "Delete",
+          onClick: () => delReceipt(id),
+        },
+        {
+          label: "Cancel",
+          // onClick: () => alert('Click No')
+        },
+      ],
+    });
+  };
 
- 
 
- 
+
+
 
   //   Begin Pagination
   const [currentItems, setCurrentItems] = useState([]);
@@ -98,11 +98,11 @@ const confirmDelete = (id) => {
     dispatch(FILTER_RECEIPTS({ receipts, search }));
   }, [receipts, search, dispatch]);
 
-  
-  
+
+
   return (
     <div className="receipt-list">
-     
+
       <div className="table">
         <div className="--flex-between --flex-dir-column">
           <span>
@@ -123,15 +123,15 @@ const confirmDelete = (id) => {
           {!isLoading && receipts.length === 0 ? (
             <p>-- No receipt found, please add a receipt...</p>
           ) : (
-            <table style={{width:"100%"}}>
+            <table style={{ width: "100%" }}>
               <thead>
                 <tr>
                   <th>s/n</th>
                   <th>Material</th>
                   <th>Quantity</th>
                   <th>Created at</th>
-    
-                 
+
+
                   <th>Action</th>
                 </tr>
               </thead>
@@ -143,24 +143,24 @@ const confirmDelete = (id) => {
                     <tr key={_id}>
                       <td>{index + 1}</td>
                       <td>{getMaterialName(materialId)}</td>
-                      
+
                       <td>{quantity}</td>
-                      <td>{new Date(createAt).toLocaleString("en-US")}</td>
-                      
-                     
-                      
+                      <td>{new Date(createAt).toLocaleDateString("vi-VN")}</td>
+
+
+
                       <td >
-                        
+
                         <span className=" me-2">
                           <Link className="icons" to={`/edit-receipt/${_id}`}>
-                            <FaEdit size={20}  />
+                            <FaEdit size={20} />
                           </Link>
                         </span>
-                        
+
                         <span className="icons me-2">
                           <FaTrashAlt
                             size={20}
-                            
+
                             onClick={() => confirmDelete(_id)}
                           />
                         </span>
@@ -176,7 +176,7 @@ const confirmDelete = (id) => {
           breakLabel="..."
           nextLabel="Next"
           onPageChange={handlePageClick}
-       
+
           pageRangeDisplayed={3}
           pageCount={pageCount}
           previousLabel="Prev"

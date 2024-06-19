@@ -39,7 +39,7 @@ export const getMaterials = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       return await materialService.getMaterials();
-      
+
     } catch (error) {
       const message =
         (error.response &&
@@ -237,7 +237,7 @@ const materialSlice = createSlice({
         toast.error(action.payload);
       });
 
-      
+
   },
 });
 
@@ -250,5 +250,6 @@ export const selectName = (state) => state.material.material?.name;
 export const selectTotalStoreValue = (state) => state.material.totalStoreValue;
 export const selectOutOfStock = (state) => state.material.outOfStock;
 export const selectCategory = (state) => state.material.category;
+export const selectMaterials = (state) => state.material.materials;
 
 export default materialSlice.reducer;

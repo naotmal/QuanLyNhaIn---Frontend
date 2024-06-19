@@ -11,14 +11,14 @@ const TaskForm = ({task,clients, description, setDescription, handleInputChange,
                 <label>Task name:</label>
                 <input type="text" placeholder='Task name' name='name' value={task?.name} onChange={handleInputChange} />
                 <label>Progress:</label>
-                <select name="progress" value={task.progress || "1"} onChange={handleInputChange}>
+                <select name="progress" value={task?.progress || "1"} onChange={handleInputChange}>
                     <option value="1">Not Start</option>
                     <option value="2">To do</option>
                     <option value="3">Doing</option>
                     <option value="4">Done</option>
                 </select>
                 <label>Client:</label>
-                <select name="clientId" value={task.clientId} onChange={handleInputChange}>
+                <select name="clientId" value={task?.clientId} onChange={handleInputChange}>
                   <option value="">Choose Client</option>
                   {clients.map(client=>(
                     <option value={client._id} key={client._id}>{client.name}</option>

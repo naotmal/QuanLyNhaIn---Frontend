@@ -25,8 +25,8 @@ const EditProfile = () => {
     name: user?.name,
     email: user?.email,
     phone: user?.phone,
-    bio: user?.bio,
     photo: user?.photo,
+    role : user?.role,
   };
   const [profile, setProfile] = useState(initialState);
   const [profileImage, setProfileImage] = useState("");
@@ -45,7 +45,7 @@ const EditProfile = () => {
     setIsLoading(true);
     try {
       // Handle Image upload
-      let imageURL;
+      let imageURL = profile.photo;
       if (
         profileImage &&
         (profileImage.type === "image/jpeg" ||
@@ -69,8 +69,9 @@ const EditProfile = () => {
         const formData = {
           name: profile.name,
           phone: profile.phone,
-          bio: profile.bio,
-          photo: profileImage ? imageURL : profile.photo,
+          photo: imageURL,
+          role:profile.role,
+        
         };
 
         const data = await updateUser(formData);
@@ -124,19 +125,10 @@ const EditProfile = () => {
                 onChange={handleInputChange}
               />
             </p>
-            <p>
-              <label>Bio:</label>
-              <textarea className="d-flex"
-                name="bio"
-                value={profile?.bio}
-                onChange={handleInputChange}
-                cols="30"
-                rows="10"
-              ></textarea>
-            </p>
             
+              
             <div>
-              <button className="--btn --btn-primary">Edit Profile</button>
+              <button type="submit" className="--btn --btn-primary">Edit Profile</button>
             </div>
           </span>
         </form>

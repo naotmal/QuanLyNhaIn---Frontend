@@ -18,6 +18,7 @@ import {
 } from "../../../redux/features/client/clientSlice";
 import { Link } from "react-router-dom";
 import { AiFillFolderAdd } from "react-icons/ai";
+import "./ClientList.scss"
 
 const ClientList = ({ clients, isLoading }) => {
   const [search, setSearch] = useState("");
@@ -33,7 +34,7 @@ const ClientList = ({ clients, isLoading }) => {
     return text;
   };
 
-  const delClient = async(id)=>{
+  const delClient = async (id) => {
     console.log(id)
     await dispatch(deleteClient(id))
     await dispatch(getClients())
@@ -55,7 +56,7 @@ const ClientList = ({ clients, isLoading }) => {
     });
   };
 
- 
+
 
   //   Begin Pagination
   const [currentItems, setCurrentItems] = useState([]);
@@ -79,10 +80,10 @@ const ClientList = ({ clients, isLoading }) => {
   useEffect(() => {
     dispatch(FILTER_CLIENTS({ clients, search }));
   }, [clients, search, dispatch]);
-  
+
   return (
     <div className="client-list">
-      
+
       <div className="table">
         <div className="--flex-between --flex-dir-column">
           <span>
@@ -103,15 +104,15 @@ const ClientList = ({ clients, isLoading }) => {
           {!isLoading && clients.length === 0 ? (
             <p>-- No client found, please add a client...</p>
           ) : (
-            <table style={{width:"100%"}}>
+            <table style={{ width: "100%" }}>
               <thead>
                 <tr>
                   <th>s/n</th>
                   <th>Name</th>
                   <th>Phone</th>
-    
+
                   <th>Email</th>
-                  
+
                   <th>Address</th>
                   <th>Action</th>
                 </tr>
@@ -125,26 +126,26 @@ const ClientList = ({ clients, isLoading }) => {
                       <td>{index + 1}</td>
                       <td>{shortenText(name, 16)}</td>
                       <td>{phone}</td>
-                      
+
                       <td>{email}</td>
                       <td>{address}</td>
-                      
+
                       <td >
                         <span className=" me-2">
                           <Link className="icons" to={`/client-detail/${_id}`}>
-                            <AiOutlineEye size={25}  />
+                            <AiOutlineEye size={25} />
                           </Link>
                         </span>
                         <span className=" me-2">
                           <Link className="icons" to={`/edit-client/${_id}`}>
-                            <FaEdit size={20}  />
+                            <FaEdit size={20} />
                           </Link>
                         </span>
-                        
+
                         <span className="icons me-2">
                           <FaTrashAlt
                             size={20}
-                            
+
                             onClick={() => confirmDelete(_id)}
                           />
                         </span>
@@ -160,7 +161,7 @@ const ClientList = ({ clients, isLoading }) => {
           breakLabel="..."
           nextLabel="Next"
           onPageChange={handlePageClick}
-       
+
           pageRangeDisplayed={3}
           pageCount={pageCount}
           previousLabel="Prev"

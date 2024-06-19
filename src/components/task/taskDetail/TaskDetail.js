@@ -10,46 +10,58 @@ import "./TaskDetail.scss";
 import DOMPurify from "dompurify";
 import ReceiptList from "../../receipt/receiptList/ReceiptList";
 import { getReceipt } from "../../../redux/features/receipt/receiptSlice";
-
+import { getMaterials } from "../../../redux/features/material/materialSlice";
+import { getClients, selectClients } from "../../../redux/features/client/clientSlice";
+import DeliveryList from "../../delivery/deliveryList/DeliveryList";
+import { getDeliverybyTask } from "../../../redux/features/delivery/deliverySlice";
 
 const TaskDetail = () => {
   useRedirectLoggedOutUser("/");
   const dispatch = useDispatch();
-
   const { id } = useParams();
 
   const isLoggedIn = useSelector(selectIsLoggedin);
   const { task, isLoading: taskLoading, isError: taskError, message: taskMessage } = useSelector((state) => state.task);
-  const { receipts, isLoading: receiptLoading, isError: receiptError, message: receiptMessage } = useSelector((state) => state.receipt);
+  const { deliveries, isLoading: deliveryLoading, isError: deliveryError, messaage: deliveryMessage } = useSelector((state) => state.delivery);
+  const { client, isLoading: clientLoading } = useSelector((state) => state.client)
 
-
-  const stockStatus = (quantity) => {
-    if (quantity > 0) {
-      return <span className="--color-success">In Stock</span>;
+  const clients = useSelector(selectClients)
+  const getClientName = (clientId) => {
+    const client = clients.find((client) => client._id === clientId)
+    return client ? client.name : "Unknown"
+  }
+  const getProgressStatus = (progress) => {
+    switch (progress) {
+      case '1':
+        return 'Not Started';
+      case '2':
+        return 'To Do';
+      case '3':
+        return 'Doing';
+      case '4':
+        return 'Done';
     }
-    return <span className="--color-danger">Out Of Stock</span>;
-  };
+  }
 
   useEffect(() => {
     if (isLoggedIn === true) {
       console.log('Fetching task with id:', id);
       dispatch(getTask(id));
-
+      dispatch(getClients());
     }
     if (taskError) {
       console.log(taskMessage);
     }
   }, [isLoggedIn, taskError, taskMessage, dispatch, id]);
-  
-  
+
   useEffect(() => {
     if (isLoggedIn === true) {
-      dispatch(getReceipt(id)); // Assuming this action fetches receipts by task ID
+      dispatch(getDeliverybyTask(id));
     }
-    if (receiptError) {
-      console.log(receiptMessage);
+    if (deliveryError) {
+      console.log(deliveryMessage);
     }
-  }, [isLoggedIn, receiptError, receiptMessage, dispatch, id]);
+  }, [isLoggedIn, deliveryError, deliveryMessage, dispatch, id]);
 
 
 
@@ -61,30 +73,29 @@ const TaskDetail = () => {
           {taskLoading && <Spinner />}
           {task && (
             <div className="detail">
-              <Card cardClass="group">
-                {task?.image ? (
-                  <img
-                    src={task.image.filePath}
-                    alt={task.image.fileName}
-                  />
-                ) : (
-                  <p>No image set for this task</p>
-                )}
-              </Card>
-              <h4>Task Availability: {stockStatus(task.quantity)}</h4>
-              <hr />
+
+
+
               <h4>
                 <span className="badge">Name: </span> &nbsp; {task.name}
               </h4>
               <p>
-                <b>&rarr; SKU : </b> {task.sku}
+                <b>&rarr; Progress : </b> {getProgressStatus(task.progress)}
               </p>
               <p>
-                <b>&rarr; Category : </b> {task.category}
+                <b>&rarr; Client : </b> {getClientName(task.clientId)}
               </p>
 
               <p>
-                <b>&rarr; Quantity in stock : </b> {task.quantity}
+                <b>&rarr; Quantity : </b> {task.quantity}
+              </p>
+
+              <p>
+                <b>&rarr; Unit : </b> {task.unit}
+              </p>
+
+              <p>
+                <b>&rarr; Description : </b> {task.description}
               </p>
 
               <hr />
@@ -95,18 +106,16 @@ const TaskDetail = () => {
               ></div>
               <hr />
               <code className="--color-dark">
-                Created on: {task.createdAt.toLocaleString("en-US")}
+                Created on: {new Date(task.createAt).toLocaleDateString("vi-VN")}
               </code>
               <br />
-              <code className="--color-dark">
-                Last Updated: {task.updatedAt.toLocaleString("en-US")}
-              </code>
+
             </div>
           )}
         </Card>
       </div>
       <div className="receipt-list col-8">
-        <ReceiptList receipts={receipts} isLoading={receiptLoading} />
+        <DeliveryList deliveries={deliveries} isLoading={deliveryLoading} />
       </div>
     </div>
 
