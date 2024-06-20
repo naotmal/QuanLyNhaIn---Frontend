@@ -140,9 +140,9 @@ const DojobList = ({ dojobs, isLoading }) => {
                   return (
                     <tr key={_id}>
                       <td>{index + 1}</td>
-                      <td>{}</td>
+                      <td>{jobId}</td>
 
-                      <td>{quantity}</td>
+                      <td>{deliveryId}</td>
                       <td>{new Date(createAt).toLocaleDateString("vi-VN")}</td>
 
 
