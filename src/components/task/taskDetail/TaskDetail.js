@@ -14,6 +14,8 @@ import { getMaterials } from "../../../redux/features/material/materialSlice";
 import { getClients, selectClients } from "../../../redux/features/client/clientSlice";
 import DeliveryList from "../../delivery/deliveryList/DeliveryList";
 import { getDeliverybyTask } from "../../../redux/features/delivery/deliverySlice";
+import DojonList from "../../dojob/DoJonList";
+import { getDoJobs } from "../../../redux/features/dojob/DoJobSlice";
 
 const TaskDetail = () => {
   useRedirectLoggedOutUser("/");
@@ -23,6 +25,7 @@ const TaskDetail = () => {
   const isLoggedIn = useSelector(selectIsLoggedin);
   const { task, isLoading: taskLoading, isError: taskError, message: taskMessage } = useSelector((state) => state.task);
   const { deliveries, isLoading: deliveryLoading, isError: deliveryError, messaage: deliveryMessage } = useSelector((state) => state.delivery);
+  const { dojobs, isLoading: dojobLoading, isError: dojobError, messaage: dojobMessage } = useSelector((state) => state.dojob);
   const { client, isLoading: clientLoading } = useSelector((state) => state.client)
 
   const clients = useSelector(selectClients)
@@ -62,6 +65,15 @@ const TaskDetail = () => {
       console.log(deliveryMessage);
     }
   }, [isLoggedIn, deliveryError, deliveryMessage, dispatch, id]);
+
+  useEffect(() => {
+    if (isLoggedIn === true) {
+      dispatch(getDoJobs());
+    }
+    if (dojobError) {
+      console.log(dojobMessage);
+    }
+  }, [isLoggedIn, dojobError, dojobMessage, dispatch]);
 
 
 
@@ -114,6 +126,7 @@ const TaskDetail = () => {
       </div>
       <div className="receipt-list col-8">
         <DeliveryList deliveries={deliveries} isLoading={deliveryLoading} />
+        {/* <DojonList dojobs={dojobs} isLoading={dojobLoading} /> */}
       </div>
     </div>
 

@@ -39,8 +39,10 @@ import AddJob from "./pages/addJob/AddJob";
 import ShowJob from "./pages/showJob/ShowJob";
 import EditJob from "./pages/editJob/EditJob";
 import JobDetail from "./components/jobDetail/JobDetail";
+import AddDoJob from "./pages/addDoJob/AddDoJob";
 
 axios.defaults.withCredentials = true;
+axios.defaults.baseURL = process.env.REACT_APP_BACKEND_URL
 
 function App() {
   const dispatch = useDispatch()
@@ -51,6 +53,7 @@ function App() {
       dispatch(SET_LOGIN(status))
     }
     loginStatus()
+  
 
   }, [dispatch])
   return (
@@ -151,6 +154,13 @@ function App() {
           <Sidebar>
             <Layout>
               <JobDetail />
+            </Layout>
+          </Sidebar>
+        } />
+        <Route path="/add-dojob/:id" element={
+          <Sidebar>
+            <Layout>
+              <AddDoJob />
             </Layout>
           </Sidebar>
         } />

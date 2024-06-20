@@ -11,6 +11,7 @@ import { deleteJob, getJobs } from '../../redux/features/job/JobSlice';
 import { confirmAlert } from "react-confirm-alert";
 import "../material/materialList/MaterialList.scss"
 
+
 const JobList = ({jobs, isLoading}) => {
     const [search, setSearch] = useState("");
     const filteredJobs = useSelector(selectFilteredJobs)
@@ -95,7 +96,7 @@ const JobList = ({jobs, isLoading}) => {
                                     <tr key={_id}>
                                         <td>{index + 1}</td>
                                         <td>{name}</td>
-                                        <td>{price}</td>
+                                        <td >{price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</td>
                                         <td>
                                         <span className=" me-2">
                           <Link className="icons" to={`/job-detail/${_id}`}>

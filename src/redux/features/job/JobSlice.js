@@ -197,5 +197,6 @@ export const selectIsLoading = (state) => state.job.isLoading
 export const selectJob = (state) => state.job.job
 export const selectJobs = (state) => state.job.jobs
 export const selectJobId = (state) => state.job._id
+export const selectJobName = (state) => state.job.name
 
 export default jobSlice.reducer

@@ -7,6 +7,7 @@ import clientReducer from "../redux/features/client/clientSlice"
 import taskReducer from "../redux/features/task/TaskSlice"
 import deliveryReducer from "../redux/features/delivery/deliverySlice"
 import jobReducer from "../redux/features/job/JobSlice"
+import dojobReducer from "../redux/features/dojob/DoJobSlice"
 
 export const store = configureStore({
   reducer: {
@@ -17,6 +18,7 @@ export const store = configureStore({
     client: clientReducer,
     task: taskReducer,
     delivery: deliveryReducer,
-    job: jobReducer
+    job: jobReducer,
+    dojob: dojobReducer
   },
 });

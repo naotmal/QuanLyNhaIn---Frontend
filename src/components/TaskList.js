@@ -157,7 +157,7 @@ const TaskList = ({ tasks, isLoading }) => {
                       <td><ChangeProgress _id={_id}/></td>
                       <td>{quantity}</td>
                       <td>{unit}</td>
-                      <td>{price}</td>
+                      <td>{price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</td>
                       
                       
                       <td >

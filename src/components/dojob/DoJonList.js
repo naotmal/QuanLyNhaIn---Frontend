@@ -1,32 +1,29 @@
 import React, { useEffect, useState } from "react";
-import { Spinner } from "../../loader/Loader";
-import "./DeliveryList.scss"
+import { Spinner } from "../loader/Loader";
+import "./DojobList.scss"
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 
-import Search from "../../search/Search";
+import Search from "../search/Search";
 import { useDispatch, useSelector } from "react-redux";
 import {
   FILTER_DELIVERIES,
-  selectFilteredDeliveries,
 
-} from "../../../redux/features/material/filterSlice";
+} from "../../redux/features/material/filterSlice";
 import ReactPaginate from "react-paginate";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
-import {
-  deleteDelivery,
 
-} from "../../../redux/features/delivery/deliverySlice";
 import { Link } from "react-router-dom";
 import { AiFillFolderAdd } from "react-icons/ai";
-import { getMaterials } from "../../../redux/features/material/materialSlice";
-import { getTasks } from "../../../redux/features/task/TaskSlice";
+import { getMaterials } from "../../redux/features/material/materialSlice";
+import { getTasks } from "../../redux/features/task/TaskSlice";
 
 
-const DeliveryList = ({ deliveries, isLoading }) => {
+const DojobList = ({ dojobs, isLoading }) => {
   const { materials, isLoading: materialLoading, isError: materialError, message: materialMessage } = useSelector((state) => state.material);
+  const { jobs, isLoading: jobLoading, isError: jobError, message: jobMessage } = useSelector((state) => state.job);
   const [search, setSearch] = useState("");
-  const filteredDeliveries = useSelector(selectFilteredDeliveries);
+  //const filteredDojobs = useSelector("");
   const dispatch = useDispatch();
   useEffect(() => {
     if (materials.length === 0) {
@@ -34,9 +31,9 @@ const DeliveryList = ({ deliveries, isLoading }) => {
     }
   }, [dispatch, materials.length]);
 
-  const getMaterialName = (id) => {
-    const material = materials.find((material) => material._id === id);
-    return material ? material.name : "Unknown Material";
+  const getJobName = (id) => {
+    const job = jobs.find((job) => job._id === id);
+    return job ? job.name : "Unknown Material";
   };
 
 
@@ -48,21 +45,21 @@ const DeliveryList = ({ deliveries, isLoading }) => {
     }
     return text;
   };
-  const delDelivery = async (id) => {
+  const delDojob = async (id) => {
     console.log(id)
-    await dispatch(deleteDelivery(id))
+   
     await dispatch(getMaterials())
     await dispatch(getTasks())
 
   }
   const confirmDelete = (id) => {
     confirmAlert({
-      title: "Delete Delivery",
-      message: "Are you sure you want to delete this delivery.",
+      title: "Delete Dojob",
+      message: "Are you sure you want to delete this dojob.",
       buttons: [
         {
           label: "Delete",
-          onClick: () => delDelivery(id),
+          onClick: () => delDojob(id),
         },
         {
           label: "Cancel",
@@ -76,38 +73,38 @@ const DeliveryList = ({ deliveries, isLoading }) => {
 
 
 
-  //   Begin Pagination
-  const [currentItems, setCurrentItems] = useState([]);
-  const [pageCount, setPageCount] = useState(0);
-  const [itemOffset, setItemOffset] = useState(0);
-  const itemsPerPage = 10;
+//   //   Begin Pagination
+//   const [currentItems, setCurrentItems] = useState([]);
+//   const [pageCount, setPageCount] = useState(0);
+//   const [itemOffset, setItemOffset] = useState(0);
+//   const itemsPerPage = 10;
+
+//   useEffect(() => {
+//     const endOffset = itemOffset + itemsPerPage;
+
+//     setCurrentItems(filteredDojobs.slice(itemOffset, endOffset));
+//     setPageCount(Math.ceil(filteredDojobs.length / itemsPerPage));
+//   }, [itemOffset, itemsPerPage, filteredDojobs]);
+
+//   const handlePageClick = (event) => {
+//     const newOffset = (event.selected * itemsPerPage) % filteredDojobs.length;
+//     setItemOffset(newOffset);
+//   };
+//   //   End Pagination
 
   useEffect(() => {
-    const endOffset = itemOffset + itemsPerPage;
-
-    setCurrentItems(filteredDeliveries.slice(itemOffset, endOffset));
-    setPageCount(Math.ceil(filteredDeliveries.length / itemsPerPage));
-  }, [itemOffset, itemsPerPage, filteredDeliveries]);
-
-  const handlePageClick = (event) => {
-    const newOffset = (event.selected * itemsPerPage) % filteredDeliveries.length;
-    setItemOffset(newOffset);
-  };
-  //   End Pagination
-
-  useEffect(() => {
-    dispatch(FILTER_DELIVERIES({ deliveries, search }));
-  }, [deliveries, search, dispatch]);
+    dispatch(FILTER_DELIVERIES({ dojobs, search }));
+  }, [dojobs, search, dispatch]);
 
 
 
   return (
-    <div className="delivery-list">
+    <div className="dojob-list">
 
       <div className="table">
         <div className="--flex-between --flex-dir-column">
           <span>
-            <h3>Delivery List</h3>
+            <h3>Dojob List</h3>
           </span>
           <span>
             <Search
@@ -121,15 +118,15 @@ const DeliveryList = ({ deliveries, isLoading }) => {
         {isLoading && <Spinner />}
 
         <div className="table d-flex">
-          {!isLoading && deliveries.length === 0 ? (
-            <p>-- No delivery found, please add a delivery...</p>
+          {!isLoading && dojobs.length === 0 ? (
+            <p>-- No dojob found, please add a dojob...</p>
           ) : (
             <table style={{ width: "100%" }}>
               <thead>
                 <tr>
                   <th>s/n</th>
-                  <th>Material</th>
-                  <th>Quantity</th>
+                  <th>Job</th>
+               
                   <th>Created at</th>
 
 
@@ -138,12 +135,12 @@ const DeliveryList = ({ deliveries, isLoading }) => {
               </thead>
 
               <tbody>
-                {currentItems.map((delivery, index) => {
-                  const { _id, quantity, createAt, materialId } = delivery;
+                {dojobs.map((dojob, index) => {
+                  const { _id, jobId, createAt, deliveryId } = dojob;
                   return (
                     <tr key={_id}>
                       <td>{index + 1}</td>
-                      <td>{getMaterialName(materialId)}</td>
+                      <td>{}</td>
 
                       <td>{quantity}</td>
                       <td>{new Date(createAt).toLocaleDateString("vi-VN")}</td>
@@ -153,7 +150,7 @@ const DeliveryList = ({ deliveries, isLoading }) => {
                       <td >
 
                         <span className=" me-2">
-                          <Link className="icons" to={`/edit-delivery/${_id}`}>
+                          <Link className="icons" to={`/edit-dojob/${_id}`}>
                             <FaEdit size={20} />
                           </Link>
                         </span>
@@ -177,7 +174,7 @@ const DeliveryList = ({ deliveries, isLoading }) => {
             </table>
           )}
         </div>
-        <ReactPaginate
+        {/* <ReactPaginate
           breakLabel="..."
           nextLabel="Next"
           onPageChange={handlePageClick}
@@ -191,10 +188,10 @@ const DeliveryList = ({ deliveries, isLoading }) => {
           previousLinkClassName="page-num"
           nextLinkClassName="page-num"
           activeClassName="activePage"
-        />
+        /> */}
       </div>
     </div>
   );
 };
 
-export default DeliveryList;
+export default DojobList;
