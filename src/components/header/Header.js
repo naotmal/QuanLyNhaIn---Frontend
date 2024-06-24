@@ -10,8 +10,9 @@ const Header = () => {
     const name = useSelector(selectName)
 
     const logout = async () => {
-        await logoutUser();
         await dispatch(SET_LOGIN(false))
+        await logoutUser();
+        
         navigate("/")
     }
     return (

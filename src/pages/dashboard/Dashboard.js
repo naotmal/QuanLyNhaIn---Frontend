@@ -22,44 +22,38 @@ const Dashboard = () => {
   const { tasks, isLoading: taskLoading, isError: taskError, message: taskMessage } = useSelector((state) => state.task);
 
   useEffect(() => {
-
+    
     if (isLoggedin === true) {
-      dispatch(getMaterials());
+    dispatch(getMaterials());
+    
+     }
 
-    }
-    console.log(materials);
-    if (materialError) {
-      console.log(materialMessage);
-    }
-  }, [isLoggedin, materialError, materialMessage, dispatch, materials]);
+  }, [isLoggedin,  dispatch, materials]);
 
-  useEffect(() => {
-    if (isLoggedin === true) {
+  useEffect(()=>{
+    if(isLoggedin===true){
       dispatch(getReceipts())
     }
-
+    
   }, [isLoggedin, dispatch, receipts])
   useEffect(() => {
-
+    
     if (isLoggedin === true) {
-      dispatch(getTasks());
-
-    }
-    console.log(tasks);
-    if (taskError) {
-      console.log(taskMessage);
-    }
-  }, [isLoggedin, taskError, taskMessage, dispatch, tasks]);
+    dispatch(getTasks());
+    
+     }
+console.log(tasks);
+    
+  }, [isLoggedin,  dispatch, tasks]);
   return (
     <div>
-
-      <TaskSummary tasks={tasks} />
-
+      <TaskSummary tasks={tasks}/>
+      
       <TaskList tasks={tasks} isLoading={taskLoading} />
-
+      
       <MaterialList materials={materials} isLoading={materialLoading} />
       <AdminLink>
-        <ReceiptList receipts={receipts} isLoading={receiptLoading} materialId={"hide"} />
+      <ReceiptList receipts={receipts} isLoading={receiptLoading} materialId={"hide"}/>
       </AdminLink>
     </div>
   );
