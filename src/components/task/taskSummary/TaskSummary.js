@@ -7,7 +7,10 @@ import { FaCheckCircle } from "react-icons/fa";
 import InfoBox from "../../infoBox/InfoBox";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  CALC_DOING,
+    CALC_DONE,
     CALC_NOT_START,
+    CALC_TO_DO,
     selectDoing,
     selectDone,
     selectNotStart,
@@ -35,6 +38,9 @@ const TaskSummary = ({ tasks }) => {
 
   useEffect(() => {
     dispatch(CALC_NOT_START(tasks));
+    dispatch(CALC_TO_DO(tasks));
+    dispatch(CALC_DOING(tasks));
+    dispatch(CALC_DONE(tasks))
     
   }, [dispatch, tasks]);
 

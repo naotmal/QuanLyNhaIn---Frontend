@@ -27,7 +27,7 @@ console.log(receipts);
     }
   }, [isLoggedin, isError, message, dispatch, receipts]);
   return (
-    <ReceiptList receipts={receipts} isLoading={isLoading} />
+    <ReceiptList receipts={receipts} isLoading={isLoading} materialId={"hide"}/>
   )
 }
 

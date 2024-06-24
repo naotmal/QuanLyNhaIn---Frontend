@@ -19,6 +19,9 @@ import {
 import { Link } from "react-router-dom";
 import { AiFillFolderAdd } from "react-icons/ai";
 import "./ClientList.scss"
+import { IoMdAdd } from "react-icons/io";
+import { SaleLink } from "../../protect/hiddenLink";
+
 
 const ClientList = ({ clients, isLoading }) => {
   const [search, setSearch] = useState("");
@@ -86,8 +89,13 @@ const ClientList = ({ clients, isLoading }) => {
 
       <div className="table">
         <div className="--flex-between --flex-dir-column">
-          <span>
+        <span className="d-flex">
             <h3>Client list</h3>
+            <SaleLink>
+            <Link className="--btn --btn-primary mt-2 mb-4" to={`/add-task`}>
+                <IoMdAdd />
+              </Link>
+              </SaleLink>
           </span>
           <span>
             <Search

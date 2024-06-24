@@ -11,6 +11,7 @@ const initialState = {
   message: "",
   totalStoreValue: 0,
   outOfStock: 0,
+  needReStock: 0,
   category: [],
 };
 
@@ -144,6 +145,20 @@ const materialSlice = createSlice({
       });
       state.outOfStock = count;
     },
+    CALC_NEED_RESTOCK(state, action) {
+      const materials = action.payload;
+      const needReStockMaterials = [];
+    
+      materials.forEach((item) => {
+        const { quantity } = item;
+        if (quantity <= 20) {
+          needReStockMaterials.push(item);
+        }
+      });
+    
+      state.needReStock = needReStockMaterials.length;
+      state.needReStockMaterials = needReStockMaterials;
+    },
     CALC_CATEGORY(state, action) {
       const materials = action.payload;
       const array = [];
@@ -241,7 +256,7 @@ const materialSlice = createSlice({
   },
 });
 
-export const { CALC_STORE_VALUE, CALC_OUTOFSTOCK, CALC_CATEGORY } =
+export const { CALC_STORE_VALUE, CALC_OUTOFSTOCK, CALC_CATEGORY, CALC_NEED_RESTOCK } =
   materialSlice.actions;
 
 export const selectIsLoading = (state) => state.material.isLoading;
@@ -249,7 +264,10 @@ export const selectMaterial = (state) => state.material.material;
 export const selectName = (state) => state.material.material?.name;
 export const selectTotalStoreValue = (state) => state.material.totalStoreValue;
 export const selectOutOfStock = (state) => state.material.outOfStock;
+export const selectNeedReStock = (state) => state.material.needReStock;
+export const selectNeedReStockMaterial = (state) => state.material.needReStockMaterials;
 export const selectCategory = (state) => state.material.category;
 export const selectMaterials = (state) => state.material.materials;
+export const selectMaterialPrice = (state) => state.material.price;
 
 export default materialSlice.reducer;

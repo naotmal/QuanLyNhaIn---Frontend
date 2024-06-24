@@ -28,9 +28,9 @@ const Adminmenu = [
         title: "Task list",
         path: "/show-task",
       },
-      
-      
-      
+
+
+
     ],
   },
   {
@@ -42,7 +42,7 @@ const Adminmenu = [
         title: "Add material",
         path: "/add-material",
       },
-      
+
       {
         role: "Product",
         title: "Material list",
@@ -58,7 +58,7 @@ const Adminmenu = [
         title: "Delivery list",
         path: "/show-delivery",
       },
-   
+
     ],
   },
   {
@@ -70,13 +70,13 @@ const Adminmenu = [
         title: "Add job",
         path: "/add-job",
       },
-      
+
       {
         role: "Product",
         title: "Job list",
         path: "/show-job",
       },
-   
+
     ],
   },
   {
@@ -93,8 +93,8 @@ const Adminmenu = [
         title: "Client list",
         path: "/show-client",
       },
-      
-      
+
+
     ],
   },
   {
@@ -118,7 +118,7 @@ const Adminmenu = [
       },
     ],
   },
-  
+
 ];
 const Salemenu = [
   {
@@ -140,29 +140,42 @@ const Salemenu = [
         title: "Task list",
         path: "/show-task",
       },
-      
-      
-      
+
+
+
     ],
   },
   {
     title: "Material",
     icon: <MdInventory />,
     childrens: [
-      
-      
+
+
       {
         role: "Product",
         title: "Material list",
         path: "/show-material",
       },
-      
+
       {
         role: "Product",
         title: "Delivery list",
         path: "/show-delivery",
       },
-   
+
+    ],
+  },
+  {
+    title: "Job",
+    icon: <FaTools />,
+    childrens: [
+
+      {
+        role: "Product",
+        title: "Job list",
+        path: "/show-job",
+      },
+
     ],
   },
   {
@@ -179,8 +192,8 @@ const Salemenu = [
         title: "Client list",
         path: "/show-client",
       },
-      
-      
+
+
     ],
   },
   {
@@ -197,10 +210,10 @@ const Salemenu = [
         title: "Edit Profile",
         path: "/edit-profile",
       },
-      
+
     ],
   },
-  
+
 ];
 const Productmenu = [
   {
@@ -212,38 +225,38 @@ const Productmenu = [
     title: "Task",
     icon: <FaTasks />,
     childrens: [
-      
+
       {
         role: "Product",
         title: "Task list",
         path: "/show-task",
       },
-      
-      
-      
+
+
+
     ],
   },
   {
     title: "Material",
     icon: <MdInventory />,
     childrens: [
-      
-      
+
+
       {
         role: "Product",
         title: "Material list",
         path: "/show-material",
       },
-      
+
       {
         role: "Product",
         title: "Delivery list",
         path: "/show-delivery",
       },
-   
+
     ],
   },
-  
+
   {
     title: "Account",
     icon: <RiAccountCircleFill />,
@@ -258,13 +271,13 @@ const Productmenu = [
         title: "Edit Profile",
         path: "/edit-profile",
       },
-      
+
     ],
   },
-  
+
 ];
 
-const menu={
+const menu = {
   Adminmenu,
   Salemenu,
   Productmenu,

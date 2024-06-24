@@ -15,19 +15,22 @@ import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import {
   deleteDelivery,
+  getDeliveries,
+  getDeliverybyTask,
 
 } from "../../../redux/features/delivery/deliverySlice";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { AiFillFolderAdd } from "react-icons/ai";
 import { getMaterials } from "../../../redux/features/material/materialSlice";
 import { getTasks } from "../../../redux/features/task/TaskSlice";
+import { IoMdAdd } from "react-icons/io";
 
-
-const DeliveryList = ({ deliveries, isLoading }) => {
+const DeliveryList = ({ deliveries, isLoading, taskId }) => {
   const { materials, isLoading: materialLoading, isError: materialError, message: materialMessage } = useSelector((state) => state.material);
   const [search, setSearch] = useState("");
   const filteredDeliveries = useSelector(selectFilteredDeliveries);
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   useEffect(() => {
     if (materials.length === 0) {
       dispatch(getMaterials());
@@ -39,7 +42,14 @@ const DeliveryList = ({ deliveries, isLoading }) => {
     return material ? material.name : "Unknown Material";
   };
 
+  const getMaterialPrice = (id) => {
+    const material = materials.find((material) => material._id === id); 
+    return material ? material.price : "Unknown Price";
+  }
 
+  const formatPrice = (price) => {
+    return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price);
+  };
 
   const shortenText = (text, n) => {
     if (text.length > n) {
@@ -53,6 +63,7 @@ const DeliveryList = ({ deliveries, isLoading }) => {
     await dispatch(deleteDelivery(id))
     await dispatch(getMaterials())
     await dispatch(getTasks())
+    navigate(0)
 
   }
   const confirmDelete = (id) => {
@@ -72,6 +83,7 @@ const DeliveryList = ({ deliveries, isLoading }) => {
     });
   };
 
+  
 
 
 
@@ -106,8 +118,15 @@ const DeliveryList = ({ deliveries, isLoading }) => {
 
       <div className="table">
         <div className="--flex-between --flex-dir-column">
-          <span>
-            <h3>Delivery List</h3>
+          <span className="d-flex">
+          
+            <h3>Delivery List </h3>
+            
+            {taskId !== "hide" && (
+              <Link className="--btn --btn-primary mt-2 mb-4" to={`/add-delivery/${taskId}`}>
+                <IoMdAdd />
+              </Link>
+            )}
           </span>
           <span>
             <Search
@@ -130,6 +149,7 @@ const DeliveryList = ({ deliveries, isLoading }) => {
                   <th>s/n</th>
                   <th>Material</th>
                   <th>Quantity</th>
+                  <th>Price</th>
                   <th>Created at</th>
 
 
@@ -146,6 +166,7 @@ const DeliveryList = ({ deliveries, isLoading }) => {
                       <td>{getMaterialName(materialId)}</td>
 
                       <td>{quantity}</td>
+                      <td>{formatPrice(quantity*getMaterialPrice(materialId))}</td>
                       <td>{new Date(createAt).toLocaleDateString("vi-VN")}</td>
 
 

@@ -22,6 +22,8 @@ import { AiFillFolderAdd } from "react-icons/ai";
 
 import { getClients, selectClients } from "../redux/features/client/clientSlice";
 import ChangeProgress from "./changeProgress/ChangeProgress";
+import { SaleLink } from "./protect/hiddenLink";
+import { IoMdAdd } from "react-icons/io";
 
 const TaskList = ({ tasks, isLoading }) => {
     const clients = useSelector(selectClients)
@@ -110,8 +112,13 @@ const TaskList = ({ tasks, isLoading }) => {
       
       <div className="table">
         <div className="--flex-between --flex-dir-column">
-          <span>
+          <span className="d-flex">
             <h3>Task list</h3>
+            <SaleLink>
+            <Link className="--btn --btn-primary mt-2 mb-4" to={`/add-task`}>
+                <IoMdAdd />
+              </Link>
+              </SaleLink>
           </span>
           <span>
             <Search
@@ -139,7 +146,10 @@ const TaskList = ({ tasks, isLoading }) => {
                   <th>Change Progress</th>
                   <th>Quantity</th>
                   <th>Unit</th>
+                  <SaleLink>
                   <th>Price</th>
+                  </SaleLink>
+                  
                   <th>Action</th>
                 </tr>
               </thead>
@@ -157,8 +167,9 @@ const TaskList = ({ tasks, isLoading }) => {
                       <td><ChangeProgress _id={_id}/></td>
                       <td>{quantity}</td>
                       <td>{unit}</td>
+                      <SaleLink>
                       <td>{price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</td>
-                      
+                      </SaleLink>
                       
                       <td >
                         <span className=" me-2">
@@ -166,16 +177,19 @@ const TaskList = ({ tasks, isLoading }) => {
                             <AiOutlineEye size={25}  />
                           </Link>
                         </span>
+                        <SaleLink>
                         <span className=" me-2">
                           <Link className="icons" to={`/edit-task/${_id}`}>
                             <FaEdit size={20}  />
                           </Link>
                         </span>
+                        </SaleLink>
                         <span className=" me-2">
                         <Link className="icons" to={`/add-delivery/${_id}`}>
                             <AiFillFolderAdd size={20}  />
                           </Link>
                         </span>
+                        <SaleLink>
                         <span className="icons me-2">
                           <FaTrashAlt
                             size={20}
@@ -183,6 +197,7 @@ const TaskList = ({ tasks, isLoading }) => {
                             onClick={() => confirmDelete(_id)}
                           />
                         </span>
+                        </SaleLink>
                       </td>
                     </tr>
                   );

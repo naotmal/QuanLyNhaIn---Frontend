@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import DeliveryFormEdit from '../../components/delivery/deliveryForm/DeliveryForm'
 import { useState } from 'react'
 import { useDispatch, useSelector } from "react-redux"
-import { createDelivery, deleteDelivery, getDeliverybyMaterial, getDeliverybyTask, getSingleDelivery, selectDelivery, selectIsLoading, updateDelivery, selectDeliveryTask } from '../../redux/features/delivery/deliverySlice'
+import { createDelivery, deleteDelivery, getDeliverybyMaterial, getDeliverybyTask, getSingleDelivery, selectDelivery, selectIsLoading, updateDelivery, selectDeliveryTask, getDeliveries } from '../../redux/features/delivery/deliverySlice'
 import { useNavigate, useParams } from 'react-router-dom'
 import Loader from '../../components/loader/Loader'
 import { getTask, selectTask, selectName } from '../../redux/features/task/TaskSlice'
@@ -66,9 +66,11 @@ const EditDelivery = () => {
         
         // await dispatch(createDelivery(taskId,formData))
         // await dispatch(deleteDelivery(id))
-        await dispatch(getDeliverybyTask())
+        await dispatch(getDeliverybyTask(delivery.taskId))
+        await dispatch(getDeliveries())
+     
+        navigate(-1)
         
-        //navigate("/show-task")
     }
 
     return (

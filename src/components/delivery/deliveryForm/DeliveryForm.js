@@ -27,7 +27,7 @@ const DeliveryForm = ({ delivery, materials, handleInputChange, saveDelivery }) 
             <button type="submit" className="--btn --btn-primary">
               Add
             </button>
-            console.log(error)
+            
           </div>
         </form>
 

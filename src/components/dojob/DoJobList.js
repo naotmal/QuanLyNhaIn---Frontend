@@ -7,34 +7,41 @@ import Search from "../search/Search";
 import { useDispatch, useSelector } from "react-redux";
 import {
   FILTER_DELIVERIES,
+  FILTER_DOJOBS,
+  selectFilteredDoJobs,
 
 } from "../../redux/features/material/filterSlice";
 import ReactPaginate from "react-paginate";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AiFillFolderAdd } from "react-icons/ai";
-import { getMaterials } from "../../redux/features/material/materialSlice";
-import { getTasks } from "../../redux/features/task/TaskSlice";
+import { getMaterial, getMaterials } from "../../redux/features/material/materialSlice";
+import { getTask } from "../../redux/features/task/TaskSlice";
+import { getJobs } from "../../redux/features/job/JobSlice";
+import { selectDeliveryMaterial } from "../../redux/features/delivery/deliverySlice";
+import { deleteDoJob } from "../../redux/features/dojob/DoJobSlice";
 
+const getMaterialNameByDeliveryId = (deliveryId, deliveries, materials) => {
+  const delivery = deliveries.find((delivery) => delivery._id === deliveryId);
+  if (!delivery) return "Unknown Material";
 
+  const material = materials.find((material) => material._id === delivery.materialId);
+  return material ? material.name : "Unknown Material";
+};
 const DojobList = ({ dojobs, isLoading }) => {
   const { materials, isLoading: materialLoading, isError: materialError, message: materialMessage } = useSelector((state) => state.material);
   const { jobs, isLoading: jobLoading, isError: jobError, message: jobMessage } = useSelector((state) => state.job);
+  const deliveries = useSelector((state) => state.delivery.deliveries);
   const [search, setSearch] = useState("");
-  //const filteredDojobs = useSelector("");
+  const filteredDojobs = useSelector(selectFilteredDoJobs);
   const dispatch = useDispatch();
   useEffect(() => {
-    if (materials.length === 0) {
-      dispatch(getMaterials());
-    }
-  }, [dispatch, materials.length]);
+    dispatch(FILTER_DOJOBS({ dojobs, search }));
+  }, [dojobs, search, dispatch]);
+  
 
-  const getJobName = (id) => {
-    const job = jobs.find((job) => job._id === id);
-    return job ? job.name : "Unknown Material";
-  };
 
 
 
@@ -45,11 +52,14 @@ const DojobList = ({ dojobs, isLoading }) => {
     }
     return text;
   };
+
+  const navigate = useNavigate()
   const delDojob = async (id) => {
     console.log(id)
    
-    await dispatch(getMaterials())
-    await dispatch(getTasks())
+    await dispatch(deleteDoJob(id))
+  navigate(0)
+
 
   }
   const confirmDelete = (id) => {
@@ -73,28 +83,47 @@ const DojobList = ({ dojobs, isLoading }) => {
 
 
 
-//   //   Begin Pagination
-//   const [currentItems, setCurrentItems] = useState([]);
-//   const [pageCount, setPageCount] = useState(0);
-//   const [itemOffset, setItemOffset] = useState(0);
-//   const itemsPerPage = 10;
-
-//   useEffect(() => {
-//     const endOffset = itemOffset + itemsPerPage;
-
-//     setCurrentItems(filteredDojobs.slice(itemOffset, endOffset));
-//     setPageCount(Math.ceil(filteredDojobs.length / itemsPerPage));
-//   }, [itemOffset, itemsPerPage, filteredDojobs]);
-
-//   const handlePageClick = (event) => {
-//     const newOffset = (event.selected * itemsPerPage) % filteredDojobs.length;
-//     setItemOffset(newOffset);
-//   };
-//   //   End Pagination
+  //   Begin Pagination
+  const [currentItems, setCurrentItems] = useState([]);
+  const [pageCount, setPageCount] = useState(0);
+  const [itemOffset, setItemOffset] = useState(0);
+  const itemsPerPage = 10;
 
   useEffect(() => {
-    dispatch(FILTER_DELIVERIES({ dojobs, search }));
-  }, [dojobs, search, dispatch]);
+    const endOffset = itemOffset + itemsPerPage;
+
+    setCurrentItems(filteredDojobs.slice(itemOffset, endOffset));
+    setPageCount(Math.ceil(filteredDojobs.length / itemsPerPage));
+  }, [itemOffset, itemsPerPage, filteredDojobs]);
+
+  const handlePageClick = (event) => {
+    const newOffset = (event.selected * itemsPerPage) % filteredDojobs.length;
+    setItemOffset(newOffset);
+  };
+  //   End Pagination
+
+  useEffect(() => {
+    if (jobs.length === 0) {
+      dispatch(getJobs());
+    }
+  }, [dispatch, jobs.length]);
+
+  const getJobName = (id) => {
+    const job = jobs.find((job) => job._id === id);
+    return job ? job.name : "Unknown job";
+  };
+  const getJobPrice = (id) => {
+    const job = jobs.find((job) => job._id === id);
+    return job ? job.price : "Unknown price";
+  };
+  const getDeliveryQuantity = (id) => {
+    const delivery = deliveries.find((delivery) => delivery._id === id);
+    return delivery ? delivery.quantity : "Unknown price";
+  };
+  const formatPrice = (price) => {
+    return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price);
+  };
+
 
 
 
@@ -104,7 +133,7 @@ const DojobList = ({ dojobs, isLoading }) => {
       <div className="table">
         <div className="--flex-between --flex-dir-column">
           <span>
-            <h3>Dojob List</h3>
+            <h3>Do Job List</h3>
           </span>
           <span>
             <Search
@@ -127,7 +156,8 @@ const DojobList = ({ dojobs, isLoading }) => {
                   <th>s/n</th>
                   <th>Job</th>
                
-                  <th>Created at</th>
+                  <th>Material</th>
+                  <th>Price</th>
 
 
                   <th>Action</th>
@@ -135,17 +165,15 @@ const DojobList = ({ dojobs, isLoading }) => {
               </thead>
 
               <tbody>
-                {dojobs.map((dojob, index) => {
-                  const { _id, jobId, createAt, deliveryId } = dojob;
+                {currentItems.map((dojob, index) => {
+                  const { _id, jobId, deliveryId } = dojob;
                   return (
                     <tr key={_id}>
                       <td>{index + 1}</td>
-                      <td>{jobId}</td>
+                      <td>{getJobName(jobId)}</td>
 
-                      <td>{deliveryId}</td>
-                      <td>{new Date(createAt).toLocaleDateString("vi-VN")}</td>
-
-
+                      <td>{getMaterialNameByDeliveryId(deliveryId, deliveries, materials)}</td>
+                      <td>{formatPrice(getDeliveryQuantity(deliveryId)*getJobPrice(jobId))}</td>
 
                       <td >
 
@@ -154,11 +182,7 @@ const DojobList = ({ dojobs, isLoading }) => {
                             <FaEdit size={20} />
                           </Link>
                         </span>
-                        <span className=" me-2">
-                          <Link className="icons" to={`/add-dojob/${_id}`}>
-                            <AiFillFolderAdd size={20} />
-                          </Link>
-                        </span>
+                        
                         <span className="icons me-2">
                           <FaTrashAlt
                             size={20}
@@ -174,7 +198,7 @@ const DojobList = ({ dojobs, isLoading }) => {
             </table>
           )}
         </div>
-        {/* <ReactPaginate
+         <ReactPaginate
           breakLabel="..."
           nextLabel="Next"
           onPageChange={handlePageClick}
@@ -188,7 +212,7 @@ const DojobList = ({ dojobs, isLoading }) => {
           previousLinkClassName="page-num"
           nextLinkClassName="page-num"
           activeClassName="activePage"
-        /> */}
+        /> 
       </div>
     </div>
   );

@@ -6,13 +6,15 @@ const initialState = {
   filteredReceipts: [],
   filteredTasks: [],
   filteredDeliveries: [],
+  filteredJobs: [],
+  filteredDoJobs: [],
 };
 
 const filterSlice = createSlice({
   name: "filter",
   initialState,
   reducers: {
-    FILTER_PRODUCTS(state, action) {
+    FILTER_MATERIALS(state, action) {
       const { materials, search } = action.payload;
       const tempMaterials = materials.filter((material) => {
         const nameMatch = typeof material.name === 'string' && material.name.toLowerCase().includes(search.toLowerCase());
@@ -72,15 +74,26 @@ const filterSlice = createSlice({
 
       state.filteredJobs = tempJobs;
     },
+    FILTER_DOJOBS(state, action) {
+      const { dojobs, search } = action.payload;
+      const tempDoJobs = dojobs.filter((dojob) => {
+        const jobMatch = typeof dojob.jobId === 'string' && dojob.jobId.toLowerCase().includes(search.toLowerCase());
+        const deliveryMatch = typeof dojob.deliveryId === 'string' && dojob.deliveryId.toLowerCase().includes(search.toLowerCase());
+        return jobMatch || deliveryMatch;
+      });
+
+      state.filteredDoJobs = tempDoJobs;
+    },
   },
 });
 
-export const { FILTER_PRODUCTS, FILTER_CLIENTS, FILTER_RECEIPTS, FILTER_TASKS, FILTER_DELIVERIES,FILTER_JOBS } = filterSlice.actions;
+export const { FILTER_MATERIALS, FILTER_CLIENTS, FILTER_RECEIPTS, FILTER_TASKS, FILTER_DELIVERIES,FILTER_JOBS,FILTER_DOJOBS } = filterSlice.actions;
 
 export const selectFilteredMaterials = (state) => state.filter.filteredMaterials;
 export const selectFilteredClients = (state) => state.filter.filteredClients || [];
 export const selectFilteredReceipts = (state) => state.filter.filteredReceipts || [];
 export const selectFilteredTasks = (state) => state.filter.filteredTasks || [];
 export const selectFilteredDeliveries = (state) => state.filter.filteredDeliveries || [];
-export const selectFilteredJobs = (state) => state.filter.filteredJobs || []
+export const selectFilteredJobs = (state) => state.filter.filteredJobs || [];
+export const selectFilteredDoJobs = (state) => state.filter.filteredDoJobs || []
 export default filterSlice.reducer;

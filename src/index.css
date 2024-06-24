@@ -331,6 +331,7 @@ p {
   justify-content: center;
   align-items: center;
   transition: all 0.3s;
+  color: white
 }
 
 .--btn-select {
@@ -351,6 +352,11 @@ p {
 
 .--btn:hover {
   transform: translateY(-2px);
+  color: white;
+}
+
+.--btn-thirdary:hover{
+  color: #986d23;
 }
 
 .--btn-lg {
@@ -370,6 +376,10 @@ p {
   color: #2B2F38;
   border: 1px solid #2B2F38;
   background: transparent;
+}
+
+.--btn-thirdary{
+  color: #dfb265;
 }
 
 .--btn-danger {

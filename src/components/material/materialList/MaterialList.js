@@ -6,7 +6,7 @@ import { AiOutlineEye } from "react-icons/ai";
 import Search from "../../search/Search";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  FILTER_PRODUCTS,
+  FILTER_MATERIALS,
   selectFilteredMaterials,
 } from "../../../redux/features/material/filterSlice";
 import ReactPaginate from "react-paginate";
@@ -18,6 +18,8 @@ import {
 } from "../../../redux/features/material/materialSlice";
 import { Link } from "react-router-dom";
 import { AiFillFolderAdd } from "react-icons/ai";
+import { AdminLink } from "../../protect/hiddenLink";
+import { IoMdAdd } from "react-icons/io";
 
 const MaterialList = ({ materials, isLoading }) => {
   const [search, setSearch] = useState("");
@@ -76,16 +78,23 @@ const MaterialList = ({ materials, isLoading }) => {
   //   End Pagination
 
   useEffect(() => {
-    dispatch(FILTER_PRODUCTS({ materials, search }));
+    dispatch(FILTER_MATERIALS({ materials, search }));
   }, [materials, search, dispatch]);
+
+
 
   return (
     <div className="material-list">
 
       <div className="table">
         <div className="--flex-between --flex-dir-column">
-          <span>
-            <h3>Material List</h3>
+        <span className="d-flex">
+            <h3>Material list</h3>
+            <AdminLink>
+            <Link className="--btn --btn-primary mt-2 mb-4" to={`/add-material`}>
+                <IoMdAdd />
+              </Link>
+              </AdminLink>
           </span>
           <span>
             <Search
@@ -110,7 +119,10 @@ const MaterialList = ({ materials, isLoading }) => {
                   <th>Category</th>
 
                   <th>Quantity</th>
+                  
+                  <AdminLink>
                   <th>Price</th>
+                  </AdminLink>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -125,19 +137,22 @@ const MaterialList = ({ materials, isLoading }) => {
                       <td>{category}</td>
 
                       <td>{quantity}</td>
-                      <td>{price}</td>
-
+                      <AdminLink>
+                      <td>{price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</td>
+                      </AdminLink>
                       <td >
                         <span className=" me-2">
                           <Link className="icons" to={`/material-detail/${_id}`}>
                             <AiOutlineEye size={25} />
                           </Link>
                         </span>
+                        <AdminLink>
                         <span className=" me-2">
                           <Link className="icons" to={`/edit-material/${_id}`}>
                             <FaEdit size={20} />
                           </Link>
                         </span>
+                        
                         <span className=" me-2">
                           <Link className="icons" to={`/add-receipt/${_id}`}>
                             <AiFillFolderAdd size={20} />
@@ -150,6 +165,7 @@ const MaterialList = ({ materials, isLoading }) => {
                             onClick={() => confirmDelete(_id)}
                           />
                         </span>
+                        </AdminLink>
                       </td>
                     </tr>
                   );

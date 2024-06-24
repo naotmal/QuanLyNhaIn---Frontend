@@ -31,7 +31,7 @@ export const createDoJob = createAsyncThunk(
     }
 )
 
-//create new do job
+//get all do job
 export const getDoJobs = createAsyncThunk(
     "dojob/getAll",
     async(_, thunkAPI)=>{
@@ -49,6 +49,83 @@ export const getDoJobs = createAsyncThunk(
         }
     }
 )
+
+//get single do job
+export const getDoJob = createAsyncThunk(
+  "dojob/getDoJob",
+  async(id, thunkAPI)=>{
+      try {
+          return await dojobService.getDoJob(id)
+      } catch (error) {
+          const message =
+      (error.response &&
+        error.response.data &&
+        error.response.data.message) ||
+      error.message ||
+      error.toString();
+    console.log(message);
+    return thunkAPI.rejectWithValue(message);
+      }
+  }
+)
+
+//get do jobs by task
+export const getDoJobsbyTask = createAsyncThunk(
+    "dojob/getJobbyTask",
+    async(taskId, thunkAPI)=>{
+        try {
+            return await dojobService.getDoJobsbyTask(taskId)
+        } catch (error) {
+            const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      console.log(message);
+      return thunkAPI.rejectWithValue(message);
+        }
+    }
+)
+
+//Delete dojob
+export const deleteDoJob = createAsyncThunk(
+    "dojob/deleteDoJob",
+    async (id, thunkAPI) => {
+      try {
+        return await dojobService.deleteDoJob(id)
+      } catch (error) {
+        const message =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
+        console.log(message);
+        return thunkAPI.rejectWithValue(message);
+      }
+    }
+  )
+
+  //update dojob
+export const updateDoJob = createAsyncThunk(
+  "dojob/updateDoJob",
+  async ({id, formData}, thunkAPI) => {
+    try {
+      return await dojobService.updateDoJob(id, formData)
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      console.log(message);
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+)
+
 
 
 const dojobSlice = createSlice({
@@ -92,8 +169,72 @@ const dojobSlice = createSlice({
           
             toast.error(action.payload)
         })
+        .addCase(getDoJob.pending, (state)=>{
+          state.isLoading = true
+      })
+      .addCase(getDoJob.fulfilled, (state, action)=>{
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.isError = false;
+        state.dojob = action.payload;
+        
+      })
+      .addCase(getDoJob.rejected, (state, action)=>{
+          state.isLoading = false;
+          state.isError = true;
+          state.message = action.payload
+        
+          toast.error(action.payload)
+      })
+        .addCase(getDoJobsbyTask.pending, (state) => {
+            state.isLoading = true;
+          })
+          .addCase(getDoJobsbyTask.fulfilled, (state, action) => {
+            state.isLoading = false;
+            state.isSuccess = true;
+            state.isError = false;
+            state.dojobs = action.payload;
+          })
+          .addCase(getDoJobsbyTask.rejected, (state, action) => {
+            state.isLoading = false;
+            state.isError = true;
+            state.message = action.payload;
+            toast.error(action.payload);
+          })
+          .addCase(deleteDoJob.pending, (state) => {
+            state.isLoading = true;
+          })
+          .addCase(deleteDoJob.fulfilled, (state, action) => {
+            state.isLoading = false;
+            state.isSuccess = true;
+            state.isError = false;
+            toast.success("Do Job deleted successfully");
+          })
+          .addCase(deleteDoJob.rejected, (state, action) => {
+            state.isLoading = false;
+            state.isError = true;
+            state.message = action.payload;
+            toast.error(action.payload);
+          })
+          .addCase(updateDoJob.pending, (state) => {
+            state.isLoading = true;
+          })
+          .addCase(updateDoJob.fulfilled, (state, action) => {
+            state.isLoading = false;
+            state.isSuccess = true;
+            state.isError = false;
+            toast.success("Do job updated successfully");
+          })
+          .addCase(updateDoJob.rejected, (state, action) => {
+            state.isLoading = false;
+            state.isError = true;
+            state.message = action.payload;
+            toast.error(action.payload);
+          });
+    
     }
 })
 
 export const selectIsLoading = (state) => state.dojob.isLoading
+export const selectDoJob = (state) => state.dojob.dojob
 export default dojobSlice.reducer

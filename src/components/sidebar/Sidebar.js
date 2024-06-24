@@ -6,7 +6,7 @@ import menu from "../../data/sidebar"
 import SidebarItem from './SidebarItem';
 import { useNavigate } from 'react-router-dom';
 import logo from '../../assets/1x/Asset 1.png'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectIsLoggedin, selectUser } from '../../redux/features/auth/authSlice';
 import { AdminLink, ProductLink } from '../protect/hiddenLink';
 
@@ -19,6 +19,7 @@ const Sidebar = ({ children }) => {
     const isLoggedIn = useSelector(selectIsLoggedin)
     const user = useSelector(selectUser)
     console.log('role', user.role);
+    const dispatch = useDispatch()
 
     const goHome = () => {
         navigate("/dashboard");

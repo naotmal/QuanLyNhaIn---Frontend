@@ -264,5 +264,6 @@ export const selectIsLoading = (state) => state.delivery.isLoading;
 export const selectClient = (state) => state.delivery.deliveries;
 export const selectDelivery = (state) => state.delivery.delivery;
 export const selectDeliveryTask = (state) => state.delivery.taskId;
+export const selectDeliveryMaterial = (state) => state.delivery.materialId;
 
 export default deliverySlice.reducer

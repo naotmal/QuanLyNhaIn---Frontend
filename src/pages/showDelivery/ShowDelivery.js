@@ -27,7 +27,7 @@ console.log(deliveries);
     }
   }, [isLoggedin, isError, message, dispatch, deliveries]);
   return (
-    <DeliveryList deliveries={deliveries} isLoading={isLoading} />
+    <DeliveryList deliveries={deliveries} isLoading={isLoading} taskId={"hide"}/>
   )
 }
 

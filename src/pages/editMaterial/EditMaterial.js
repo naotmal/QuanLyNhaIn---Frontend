@@ -70,7 +70,7 @@ const saveMaterial = async (e) => {
 
   await dispatch(updateMaterial({id, formData}))
 await dispatch(getMaterials())
-  navigate(`/material-detail/${id}`)
+  navigate(-1)
 }
 
 

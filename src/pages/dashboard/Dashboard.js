@@ -10,6 +10,7 @@ import { getReceipts } from "../../redux/features/receipt/receiptSlice";
 import { getTasks } from "../../redux/features/task/TaskSlice";
 import TaskList from "../../components/TaskList";
 import TaskSummary from "../../components/task/taskSummary/TaskSummary";
+import { AdminLink, SaleLink } from "../../components/protect/hiddenLink";
 
 const Dashboard = () => {
   useRedirectLoggedOutUser("/");
@@ -21,43 +22,45 @@ const Dashboard = () => {
   const { tasks, isLoading: taskLoading, isError: taskError, message: taskMessage } = useSelector((state) => state.task);
 
   useEffect(() => {
-    
+
     if (isLoggedin === true) {
-    dispatch(getMaterials());
-    
-     }
-console.log(materials);
+      dispatch(getMaterials());
+
+    }
+    console.log(materials);
     if (materialError) {
       console.log(materialMessage);
     }
   }, [isLoggedin, materialError, materialMessage, dispatch, materials]);
 
-  useEffect(()=>{
-    if(isLoggedin===true){
+  useEffect(() => {
+    if (isLoggedin === true) {
       dispatch(getReceipts())
     }
-    if(receiptError){
-      console.log(receiptMessage)
-    }
-  }, [isLoggedin, receiptError, receiptMessage, dispatch, receipts])
+
+  }, [isLoggedin, dispatch, receipts])
   useEffect(() => {
-    
+
     if (isLoggedin === true) {
-    dispatch(getTasks());
-    
-     }
-console.log(tasks);
+      dispatch(getTasks());
+
+    }
+    console.log(tasks);
     if (taskError) {
       console.log(taskMessage);
     }
   }, [isLoggedin, taskError, taskMessage, dispatch, tasks]);
   return (
     <div>
-      <TaskSummary tasks={tasks}/>
-      
+
+      <TaskSummary tasks={tasks} />
+
       <TaskList tasks={tasks} isLoading={taskLoading} />
+
       <MaterialList materials={materials} isLoading={materialLoading} />
-      <ReceiptList receipts={receipts} isLoading={receiptLoading}/>
+      <AdminLink>
+        <ReceiptList receipts={receipts} isLoading={receiptLoading} materialId={"hide"} />
+      </AdminLink>
     </div>
   );
 };

@@ -20,8 +20,9 @@ const AddDoJob = () => {
     const isLoading = useSelector(selectIsLoading)
 
     const {jobId} = dojob
-    const {deliveryId} = useParams()
-
+    
+    const {id} = useParams()
+    const deliveryId = String(id)
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setDoJob({ ...dojob, [name]: value })
@@ -43,6 +44,8 @@ const AddDoJob = () => {
         
 
         await dispatch(createDoJob({deliveryId, formData}))
+        console.log(formData);
+        navigate(-1)
     }
     
   return (
@@ -53,6 +56,7 @@ const AddDoJob = () => {
         handleInputChange={handleInputChange}
         saveDoJob={saveDoJob}
         />
+        
     </div>
   )
 }

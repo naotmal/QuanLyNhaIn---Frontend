@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import { createJob, getJob, selectIsLoading, selectJob, updateJob } from '../../redux/features/job/JobSlice'
 import JobForm from '../../components/jobForm/JobForm'
+import { AdminLink } from '../../components/protect/hiddenLink'
 
 
 const initialState={
@@ -54,6 +55,7 @@ const EditJob = () => {
     }
   return (
     <div>
+        <AdminLink>
         <h3 className="--mt">Edit New Job</h3>
         <JobForm
             job={job}
@@ -62,6 +64,7 @@ const EditJob = () => {
             setDescription={setDescription}
             saveJob={saveJob}
         />
+        </AdminLink>
     </div>
   )
 }

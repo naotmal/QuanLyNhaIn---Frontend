@@ -40,6 +40,7 @@ import ShowJob from "./pages/showJob/ShowJob";
 import EditJob from "./pages/editJob/EditJob";
 import JobDetail from "./components/jobDetail/JobDetail";
 import AddDoJob from "./pages/addDoJob/AddDoJob";
+import EditDoJob from "./pages/editDoJob/EditDoJob";
 
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL = process.env.REACT_APP_BACKEND_URL
@@ -161,6 +162,13 @@ function App() {
           <Sidebar>
             <Layout>
               <AddDoJob />
+            </Layout>
+          </Sidebar>
+        } />
+        <Route path="/edit-dojob/:id" element={
+          <Sidebar>
+            <Layout>
+              <EditDoJob />
             </Layout>
           </Sidebar>
         } />

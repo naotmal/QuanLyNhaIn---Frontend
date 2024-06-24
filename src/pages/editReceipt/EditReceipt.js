@@ -32,6 +32,7 @@ const EditReceipt = () => {
     useEffect(()=>{
         setReceipt(receiptEdit)
     },[receiptEdit])
+
     
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -40,7 +41,7 @@ const EditReceipt = () => {
   
     
     
-    const materialId = String(id)
+    const recieptId = String(id)
 
      
       
@@ -54,12 +55,12 @@ const EditReceipt = () => {
         
 
         console.log(...formData);
-        console.log(`materialId: ${materialId}, type: ${typeof materialId}`);
+        console.log(`materialId: ${recieptId}, type: ${typeof recieptId}`);
 
         await dispatch(updateReceipt({id, formData}))
-        await dispatch(getReceipt(materialId))
-
-        navigate("/show-material")
+        await dispatch(getReceipt(recieptId))
+        navigate(`/material-detail/${receipt.materialId}`)
+      
     }
 
     return (

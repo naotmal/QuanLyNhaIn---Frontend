@@ -22,3 +22,5 @@ export const SaleLink = ({ children }) => {
     }
     return null;
 }
+
+

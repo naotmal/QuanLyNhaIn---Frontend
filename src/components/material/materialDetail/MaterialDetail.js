@@ -12,6 +12,7 @@ import ReceiptList from "../../receipt/receiptList/ReceiptList";
 import DeliveryList from "../../delivery/deliveryList/DeliveryList";
 import { getReceipt } from "../../../redux/features/receipt/receiptSlice";
 import { getDeliverybyMaterial } from "../../../redux/features/delivery/deliverySlice";
+import { AdminLink } from "../../protect/hiddenLink";
 
 
 const MaterialDetail = () => {
@@ -48,9 +49,7 @@ const MaterialDetail = () => {
     if (isLoggedIn === true) {
       dispatch(getReceipt(id)); // Assuming this action fetches receipts by material ID
     }
-    if (receiptError) {
-      console.log(receiptMessage);
-    }
+
   }, [isLoggedIn, receiptError, receiptMessage, dispatch, id]);
 
   useEffect(() => {
@@ -85,9 +84,11 @@ const MaterialDetail = () => {
               <h4>
                 <span className="badge">Name: </span> &nbsp; {material.name}
               </h4>
-              <p>
-                <b>&rarr; SKU : </b> {material.sku}
-              </p>
+              <AdminLink>
+                <p>
+                  <b>&rarr; Price : </b> {material.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
+                </p>
+              </AdminLink>
               <p>
                 <b>&rarr; Category : </b> {material.category}
               </p>
@@ -115,8 +116,10 @@ const MaterialDetail = () => {
         </Card>
       </div>
       <div className="receipt-list col-8">
-        <ReceiptList receipts={receipts} isLoading={receiptLoading} />
-        <DeliveryList deliveries={deliveries} isLoading={deliveryLoading} />
+        <AdminLink>
+          <ReceiptList receipts={receipts} isLoading={receiptLoading} materialId={id} />
+        </AdminLink>
+        <DeliveryList deliveries={deliveries} isLoading={deliveryLoading} taskId={"hide"} />
       </div>
     </div>
 
