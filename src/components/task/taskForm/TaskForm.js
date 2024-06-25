@@ -10,13 +10,13 @@ const TaskForm = ({task,clients, description, setDescription, handleInputChange,
             <form onSubmit={saveTask}>
                 <label>Task name:</label>
                 <input type="text" placeholder='Task name' name='name' value={task?.name} onChange={handleInputChange} />
-                <label>Progress:</label>
-                <select name="progress" value={task?.progress || "1"} onChange={handleInputChange}>
-                    <option value="1">Not Start</option>
-                    <option value="2">To do</option>
-                    <option value="3">Doing</option>
-                    <option value="4">Done</option>
-                </select>
+                 <label>Priority:</label>
+                <select name="priority" value={task?.priority || "2"} onChange={handleInputChange}>
+                    <option value="1">High</option>
+                    <option value="2">Medium</option>
+                    <option value="3">Low</option>
+              
+                </select> 
                 <label>Client:</label>
                 <select name="clientId" value={task?.clientId} onChange={handleInputChange}>
                   <option value="">Choose Client</option>

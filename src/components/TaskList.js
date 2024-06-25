@@ -24,11 +24,14 @@ import { getClients, selectClients } from "../redux/features/client/clientSlice"
 import ChangeProgress from "./changeProgress/ChangeProgress";
 import { SaleLink } from "./protect/hiddenLink";
 import { IoMdAdd } from "react-icons/io";
+import { selectUser } from "../redux/features/auth/authSlice";
 
 const TaskList = ({ tasks, isLoading }) => {
     const clients = useSelector(selectClients)
   const [search, setSearch] = useState("");
   const filteredTasks = useSelector(selectFilteredTasks);
+  const [progressFilter, setProgressFilter] = useState("")
+  const user = useSelector(selectUser)
 
   const dispatch = useDispatch();
 
@@ -84,8 +87,18 @@ const TaskList = ({ tasks, isLoading }) => {
   //   End Pagination
 
   useEffect(() => {
-    dispatch(FILTER_TASKS({ tasks, search }));
-  }, [tasks, search, dispatch]);
+    let filteredTasks = tasks;
+    if (progressFilter) {
+      filteredTasks = filteredTasks.filter(
+        (task) => task.progress === progressFilter
+      );
+    }
+
+    if (user.role === "Product") {
+      filteredTasks = tasks.filter((task) => task.progress !== '1');
+    }
+    dispatch(FILTER_TASKS({ tasks: filteredTasks, search }));
+  }, [tasks, search, dispatch, user.role]);
 
   useEffect(()=>{
     dispatch(getClients())
@@ -107,11 +120,21 @@ const TaskList = ({ tasks, isLoading }) => {
         return 'Done';
     }
   }
+  const getPriorityStatus = (priority) =>{
+    switch(priority){
+      case '1':
+        return 'High';
+        case '2':
+        return 'Medium';
+        case '3':
+        return 'Low';
+    }
+  }
   return (
     <div className="task-list">
       
       <div className="table">
-        <div className="--flex-between --flex-dir-column">
+        <div className="--flex-between --flex-dir-column" >
           <span className="d-flex">
             <h3>Task list</h3>
             <SaleLink>
@@ -120,13 +143,28 @@ const TaskList = ({ tasks, isLoading }) => {
               </Link>
               </SaleLink>
           </span>
-          <span>
+          <span className="d-flex align-items-center">
+            
+            
+            
+            <select
+              value={progressFilter}
+              onChange={(e) => setProgressFilter(e.target.value)}
+              style={{maxHeight:"50px"}}
+            >
+              <option value="">All Progress</option>
+              <option value="1">Not Started</option>
+              <option value="2">To Do</option>
+              <option value="3">Doing</option>
+              <option value="4">Done</option>
+            </select>
             <Search
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeHolder="Search task"
             />
           </span>
+          
         </div>
 
         {isLoading && <Spinner />}
@@ -141,7 +179,7 @@ const TaskList = ({ tasks, isLoading }) => {
                   <th>s/n</th>
                   <th>Name</th>
                   <th>Client</th>
-    
+                  <th>Priority</th>
                   <th>Progress</th>
                   <th>Change Progress</th>
                   <th>Quantity</th>
@@ -156,13 +194,13 @@ const TaskList = ({ tasks, isLoading }) => {
 
               <tbody>
                 {currentItems.map((task, index) => {
-                  const { _id, name, clientId, progress, quantity, unit, price} = task;
+                  const { _id, name, clientId, progress,priority, quantity, unit, price} = task;
                   return (
-                    <tr key={_id}>
+                    <tr key={_id} className={priority === '1' ? 'high-priority' : ''}>
                       <td>{index + 1}</td>
                       <td>{shortenText(name, 16)}</td>
                       <td>{getClientName(clientId)}</td>
-                      
+                      <td>{getPriorityStatus(priority)}</td>
                       <td>{getProgressStatus(progress)}</td>
                       <td><ChangeProgress _id={_id}/></td>
                       <td>{quantity}</td>

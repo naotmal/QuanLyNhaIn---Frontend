@@ -139,7 +139,7 @@ const DojobList = ({ dojobs, isLoading }) => {
             <Search
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeHolder="Search reciept"
+              placeHolder="Search do job"
             />
           </span>
         </div>

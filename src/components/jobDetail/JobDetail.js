@@ -8,6 +8,7 @@ import Card from '../card/Card'
 import { Spinner } from '../loader/Loader'
 import DOMPurify from "dompurify";
 import "./JobDetail.scss"
+import { SaleLink } from '../protect/hiddenLink'
 
 const JobDetail = () => {
     useRedirectLoggedOutUser("/")
@@ -37,9 +38,11 @@ const JobDetail = () => {
                         <h4>
                             <span className='badge'>Name:</span>  &nbsp; {job.name}
                         </h4>
+                        <SaleLink>
                         <p>
                             <b>Price: </b> {job.price}
                         </p>
+                        </SaleLink>
                         <hr />
                         <div
                 dangerouslySetInnerHTML={{

@@ -139,10 +139,11 @@ const TaskDetail = () => {
               <p>
                 <b>&rarr; Unit : </b> {task.unit}
               </p>
+              <SaleLink>
               <p>
                 <b>&rarr; Price : </b> {task.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
               </p>
-              
+              </SaleLink>
 
               <hr />
               <div

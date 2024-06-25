@@ -12,7 +12,7 @@ const DeliveryForm = ({ delivery, materials, handleInputChange, saveDelivery }) 
           <select name="materialId" value={delivery?.materialId} onChange={handleInputChange}>
             <option value="">Choose Material</option>
             {materials.map(material => (
-              <option value={material._id} key={material._id}>{material.name}</option>
+              <option value={material._id} key={material._id}>{material.name} ({material.quantity})</option>
             ))}
           </select>
 

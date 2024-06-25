@@ -139,7 +139,7 @@ const materialSlice = createSlice({
       });
       let count = 0;
       array.forEach((number) => {
-        if (number === 0 || number === "0") {
+        if (number <= 0) {
           count += 1;
         }
       });
@@ -151,7 +151,7 @@ const materialSlice = createSlice({
     
       materials.forEach((item) => {
         const { quantity } = item;
-        if (quantity <= 20) {
+        if (quantity <= 20 && quantity> 0) {
           needReStockMaterials.push(item);
         }
       });

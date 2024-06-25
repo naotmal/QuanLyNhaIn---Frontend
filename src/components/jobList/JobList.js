@@ -11,7 +11,7 @@ import { deleteJob, getJobs } from '../../redux/features/job/JobSlice';
 import { confirmAlert } from "react-confirm-alert";
 import "../material/materialList/MaterialList.scss"
 import { IoMdAdd } from "react-icons/io";
-import { AdminLink } from '../protect/hiddenLink';
+import { AdminLink, SaleLink } from '../protect/hiddenLink';
 
 
 const JobList = ({ jobs, isLoading }) => {
@@ -92,7 +92,9 @@ const JobList = ({ jobs, isLoading }) => {
                 <tr>
                   <th>s/n</th>
                   <th>Name</th>
+                  <SaleLink>
                   <th>Price</th>
+                  </SaleLink>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -103,7 +105,9 @@ const JobList = ({ jobs, isLoading }) => {
                     <tr key={_id}>
                       <td>{index + 1}</td>
                       <td>{name}</td>
+                      <SaleLink>
                       <td >{price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</td>
+                      </SaleLink>
                       <td>
                         <span className=" me-2">
                           <Link className="icons" to={`/job-detail/${_id}`}>

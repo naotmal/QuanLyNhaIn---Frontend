@@ -22,7 +22,7 @@
 
   --color-primary: #dfb265;
   --color-success: #28a745;
-  --color-danger: #dfb265;
+  --color-danger: #ef4031;
 }
 
 * {
@@ -557,6 +557,6 @@ a:hover {
 
 .activePage .page-num {
   color: #fff;
-  background-color: var(--color-danger);
+  background-color: var(--color-primary);
 
 }

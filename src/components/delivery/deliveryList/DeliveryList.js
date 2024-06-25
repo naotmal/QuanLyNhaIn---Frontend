@@ -25,6 +25,7 @@ import { getMaterials } from "../../../redux/features/material/materialSlice";
 import { getTasks } from "../../../redux/features/task/TaskSlice";
 import { IoMdAdd } from "react-icons/io";
 
+
 const DeliveryList = ({ deliveries, isLoading, taskId }) => {
   const { materials, isLoading: materialLoading, isError: materialError, message: materialMessage } = useSelector((state) => state.material);
   const [search, setSearch] = useState("");
@@ -45,6 +46,11 @@ const DeliveryList = ({ deliveries, isLoading, taskId }) => {
   const getMaterialPrice = (id) => {
     const material = materials.find((material) => material._id === id); 
     return material ? material.price : "Unknown Price";
+  }
+
+  const getMaterialQuantity = (id) =>{
+    const material = materials.find((material) => material._id === id); 
+    return material ? material.quantity : "Unknown Quantity";
   }
 
   const formatPrice = (price) => {
@@ -161,7 +167,7 @@ const DeliveryList = ({ deliveries, isLoading, taskId }) => {
                 {currentItems.map((delivery, index) => {
                   const { _id, quantity, createAt, materialId } = delivery;
                   return (
-                    <tr key={_id}>
+                    <tr key={_id} className={getMaterialQuantity(materialId) > quantity ? 'not-available' : ''}>
                       <td>{index + 1}</td>
                       <td>{getMaterialName(materialId)}</td>
 

@@ -3,6 +3,7 @@ import { IoSaveSharp } from "react-icons/io5";
 import { useDispatch } from 'react-redux';
 import { toast } from "react-toastify";
 import { getTasks, changeProgress } from '../../redux/features/task/TaskSlice';
+import { confirmAlert } from 'react-confirm-alert';
 
 const ChangeProgress = ({ _id }) => {
     const [taskProgress, setTaskProgress] = useState("");
@@ -15,13 +16,45 @@ const ChangeProgress = ({ _id }) => {
             toast.error("Please select a progress");
             return;
         }
+
+        if (taskProgress === "4"){
+            confirmDeliveryQuantity();
+        } else{
+            const taskData = {
+                progress: taskProgress,
+                id: _id,
+            };
+            await dispatch(changeProgress(taskData));
+            await dispatch(getTasks());
+        }
+       
+    };
+
+    const handleConfirmProgressChange = async () => {
         const taskData = {
-            progress: taskProgress,
-            id: _id,
+          progress: taskProgress,
+          id: _id,
         };
         await dispatch(changeProgress(taskData));
         await dispatch(getTasks());
-    };
+      };
+
+    const confirmDeliveryQuantity = () =>{
+        confirmAlert({
+            title: "Confirm Delivery Quantity",
+            message: "Are you sure your delivery quantity is updated?",
+            buttons: [
+              {
+                label: "Confirm",
+                onClick: () => handleConfirmProgressChange(),
+              },
+              {
+                label: "Cancel",
+                // onClick: () => alert('Click No')
+              },
+            ],
+          });
+    }
 
     return (
         <div className="sort">

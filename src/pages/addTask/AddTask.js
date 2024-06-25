@@ -13,6 +13,7 @@ const initialState={
     name:"",
     clientId:"",
     progress:"1",
+    priority:"2",
     quantity:"",
     unit:"",
     description:"",
@@ -61,6 +62,7 @@ useEffect(() => {
         const formData = new FormData()
         formData.append("name", task.name)
         formData.append("progress", task.progress)
+        formData.append("priority", task.priority)
         formData.append("clientId", task.clientId)
         formData.append("quantity", task.quantity)
         formData.append("unit", task.unit)

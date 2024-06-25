@@ -16,6 +16,7 @@ import {
     selectNotStart,
     selectToDo,
 } from "../../../redux/features/task/TaskSlice";
+import { SaleLink } from "../../protect/hiddenLink";
 
 // Icons
 const notstartIcon = <BiSolidHourglassTop size={40} />;
@@ -48,12 +49,14 @@ const TaskSummary = ({ tasks }) => {
     <div className="task-summary">
       <h3 className="--mt">Task Stats</h3>
       <div className="info-summary d-flex flex-wrap">
+        <SaleLink>
         <InfoBox
           icon={notstartIcon}
           title={"Not Start"}
           count={notStart}
           
         />
+        </SaleLink>
         <InfoBox
           icon={todoIcon}
           title={"To Do"}

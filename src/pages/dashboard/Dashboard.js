@@ -12,7 +12,9 @@ import TaskList from "../../components/TaskList";
 import TaskSummary from "../../components/task/taskSummary/TaskSummary";
 import { AdminLink, SaleLink } from "../../components/protect/hiddenLink";
 
+
 const Dashboard = () => {
+  
   useRedirectLoggedOutUser("/");
   const dispatch = useDispatch();
 
@@ -45,8 +47,10 @@ const Dashboard = () => {
 console.log(tasks);
     
   }, [isLoggedin,  dispatch, tasks]);
+  
   return (
     <div>
+      
       <TaskSummary tasks={tasks}/>
       
       <TaskList tasks={tasks} isLoading={taskLoading} />

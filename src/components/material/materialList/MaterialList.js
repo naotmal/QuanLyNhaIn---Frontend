@@ -96,7 +96,7 @@ const MaterialList = ({ materials, isLoading }) => {
               </Link>
               </AdminLink>
           </span>
-          <span>
+          <span >
             <Search
               value={search}
               onChange={(e) => setSearch(e.target.value)}
@@ -131,7 +131,7 @@ const MaterialList = ({ materials, isLoading }) => {
                 {currentItems.map((material, index) => {
                   const { _id, name, category, quantity, price } = material;
                   return (
-                    <tr key={_id}>
+                    <tr key={_id} className={quantity <= 0 ? 'out-of-stock' : quantity <= 20 ? 'need-restock' : ''}>
                       <td>{index + 1}</td>
                       <td>{shortenText(name, 16)}</td>
                       <td>{category}</td>

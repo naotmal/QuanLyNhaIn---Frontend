@@ -256,6 +256,19 @@ const Productmenu = [
 
     ],
   },
+  {
+    title: "Job",
+    icon: <FaTools />,
+    childrens: [
+
+      {
+        role: "Product",
+        title: "Job list",
+        path: "/show-job",
+      },
+
+    ],
+  },
 
   {
     title: "Account",
