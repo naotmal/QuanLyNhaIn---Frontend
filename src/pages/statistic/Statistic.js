@@ -45,6 +45,8 @@ const Statistic = () => {
     return acc;
   }, {});
 
+  
+
   // Prepare data for line chart (tasks created)
   const lineChartData = useMemo(() => {
     const last30Days = generateLast30Days();
@@ -77,6 +79,12 @@ const Statistic = () => {
 
   // Prepare data for task progress pie chart
   const pieChartData = useMemo(() => {
+    const progressLabels = {
+      '1': 'Not Started',
+      '2': 'To Do',
+      '3': 'Doing',
+    };
+  
     const progressCount = tasks.reduce((acc, task) => {
       const progress = task.progress.toString(); // Convert to string if necessary
       if (!acc[progress]) {
@@ -85,9 +93,9 @@ const Statistic = () => {
       acc[progress] += 1;
       return acc;
     }, {});
-
+  
     return Object.keys(progressCount).map(progress => ({
-      name: progress,
+      name: progressLabels[progress] || progress, // Use label if exists, else use progress value
       value: progressCount[progress],
     }));
   }, [tasks]);
