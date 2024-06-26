@@ -68,6 +68,25 @@ export const getClient = createAsyncThunk(
   }
 )
 
+//Get client sku
+export const getClientSKU = createAsyncThunk(
+  "clients/getClientSKU",
+  async(sku, thunkAPI) =>{
+    try {
+      return await clientService.getClientSKU(sku)
+    }catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      console.log(message);
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+)
+
 //Delete client
 export const deleteClient = createAsyncThunk(
   "clients/delete",
@@ -175,6 +194,21 @@ builder
   state.client = action.payload;
 })
 .addCase(getClient.rejected, (state, action) => {
+  state.isLoading = false;
+  state.isError = true;
+  state.message = action.payload;
+  toast.error(action.payload);
+})
+.addCase(getClientSKU.pending, (state) => {
+  state.isLoading = true;
+})
+.addCase(getClientSKU.fulfilled, (state, action) => {
+  state.isLoading = false;
+  state.isSuccess = true;
+  state.isError = false;
+  state.client = action.payload;
+})
+.addCase(getClientSKU.rejected, (state, action) => {
   state.isLoading = false;
   state.isError = true;
   state.message = action.payload;

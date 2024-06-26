@@ -1,0 +1,151 @@
+.home {
+    min-height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #eaeaea;
+  img{
+    width: 48%;
+  }
+    .card {
+        width: 100%;
+        max-width: 800px;
+        padding: 1rem;
+        margin: 2rem;
+      }
+  
+    form {
+      width: 80rem;
+      padding: 1.5rem;
+      animation: slide-up 0.5s ease;
+      background-color: var(--color-white);
+      h2 {
+        color: var(--color-primary);
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+      
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            margin: 16px 10px 0px 0px;
+          display: block;
+          font-size: 1.6rem;
+          font-weight: 300;
+          padding: 1rem;
+        
+          width: 100%;
+          border: 1px solid #ccc;
+          border-radius: 3px;
+          outline: none;
+  
+          &:focus {
+            outline: none;
+           
+            
+          }
+  
+          &:focus:invalid {
+            border: 1px solid #dfb265;
+          }
+        }
+        .links {
+          display: flex;
+          justify-content: space-between;
+          margin: 5px 0;
+          color: #dfb265;
+        }
+  
+        p {
+          text-align: center;
+          margin: 1rem;
+        }
+        
+          
+      
+      .register {
+        color: #dfb265;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 1rem;
+        color: #dfb265;
+      }
+      
+    }
+.detail{
+    background-color: white;
+}
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        font-size: 1.4rem;
+  
+        thead {
+          border-top: 2px solid var(--light-blue);
+          border-bottom: 2px solid var(--light-blue);
+        }
+  
+        th {
+          border: 1px solid #eee;
+        }
+  
+        th,
+        td {
+          vertical-align: top;
+          text-align: left;
+          padding: 8px;
+  
+          &.icons {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            > * {
+              margin-right: 7px;
+              cursor: pointer;
+              vertical-align: middle;
+              align-self: center;
+            }
+          }
+        }
+  
+        tr {
+          border-bottom: 1px solid #ccc;
+        }
+  
+        tr:nth-child(even) {
+          background-color: #fff;
+        }
+        tbody {
+          tr:hover {
+            // cursor: pointer;
+            background-color: rgba(121, 136, 149, 0.3);
+          }
+        }
+      }
+  
+    @keyframes slide-up {
+      0% {
+        transform: translateY(-5rem);
+      }
+      100% {
+        transform: translateY(0);
+      }
+    }
+    @keyframes slide-down {
+      0% {
+        transform: translateY(5rem);
+      }
+      100% {
+        transform: translateY(0);
+      }
+    }
+  }
+  
+  @media screen and (max-width: 700px) {
+    .img {
+      display: none;
+    }
+  }
+
+  

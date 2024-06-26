@@ -41,6 +41,9 @@ import EditJob from "./pages/editJob/EditJob";
 import JobDetail from "./components/jobDetail/JobDetail";
 import AddDoJob from "./pages/addDoJob/AddDoJob";
 import EditDoJob from "./pages/editDoJob/EditDoJob";
+import Home from "./pages/home/Home";
+
+
 
 
 axios.defaults.withCredentials = true;
@@ -67,8 +70,7 @@ function App() {
         <Route path="/resetpassword/:resetToken" element={<Reset />} />
         <Route path="/register" element={<Register />} />
         <Route path="/forgotpassword/" element={<Forgot />} />
-       
-
+        <Route path="/home" element={<Home />} />
 
         <Route path="/dashboard" element={
           <Sidebar>
@@ -269,6 +271,7 @@ function App() {
             </Layout>
           </Sidebar>
         } />
+        
       </Routes>
 
 

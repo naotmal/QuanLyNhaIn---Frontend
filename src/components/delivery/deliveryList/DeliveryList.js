@@ -167,7 +167,7 @@ const DeliveryList = ({ deliveries, isLoading, taskId }) => {
                 {currentItems.map((delivery, index) => {
                   const { _id, quantity, createAt, materialId } = delivery;
                   return (
-                    <tr key={_id} className={getMaterialQuantity(materialId) > quantity ? 'not-available' : ''}>
+                    <tr key={_id} className={getMaterialQuantity(materialId) < quantity ? 'not-available' : ''}>
                       <td>{index + 1}</td>
                       <td>{getMaterialName(materialId)}</td>
 

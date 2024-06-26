@@ -38,6 +38,14 @@ const getClient = async(id)=>{
     return response.data
   }
 
+  //Get client by sku
+const getClientSKU = async(sku)=>{
+    const response = await axios(`${API_URL}client/${sku}`,{
+        method:"get"
+    })
+    return response.data
+  }
+
 //Delete client
 const deleteClient = async (id)=>{
     const response = await axios(`${API_URL}${id}`,{
@@ -64,6 +72,7 @@ const clientService = {
     getClient,
     deleteClient,
     updateClient,
+    getClientSKU,
 }
 
 export default clientService;
