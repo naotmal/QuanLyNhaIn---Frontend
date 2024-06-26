@@ -54,6 +54,7 @@ const filterSlice = createSlice({
 
       state.filteredTasks = tempTasks;
     },
+   
     FILTER_DELIVERIES(state, action) {
       const { deliveries, search } = action.payload;
       const tempDeliveries = deliveries.filter((delivery) => {

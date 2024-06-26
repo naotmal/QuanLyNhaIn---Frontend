@@ -51,6 +51,9 @@ const ClientDetail = () => {
                 <span className="badge">Name: </span> &nbsp; {client.name}
               </h4>
               <p>
+              <b>&rarr; SKU : </b> {client.sku}
+            </p>
+              <p>
                 <b> Phone: </b> {client.phone}
               </p>
               <p>

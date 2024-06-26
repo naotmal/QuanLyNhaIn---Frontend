@@ -50,6 +50,18 @@ const getTask = async (taskId) => {
     return response.data
 }
 
+//get task by client sku
+const getTaskbyClientSku = async(sku)=>{
+    const response = await axios(`${API_URL}clientsku/${sku}`,{
+        method: "get",
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        }
+    })
+    return response.data
+}
+
 //Get task by client
 const getTaskbyClient = async (clientId) => {
     const response = await axios(`${API_URL}${clientId}`, {
@@ -96,6 +108,7 @@ const taskService = {
     updateTask,
     getTaskbyClient,
     changeProgress,
+    getTaskbyClientSku,
 }
 
 export default taskService;

@@ -108,6 +108,22 @@ export const getTaskbyClient = createAsyncThunk(
     }
   }
 )
+
+//get task by client sku
+export const getTaskbyClientSku = createAsyncThunk(
+  "tasks/getTaskbyClientSku",
+  async (sku, thunkAPI) => {
+    try {
+      return await taskService.getTaskbyClientSku(sku)
+    } catch (error) {
+      const message = (
+        error.response && error.response.data && error.response.data.message) || error.message || error.toString();
+      toast.error(message)
+      console.log(message);
+      return thunkAPI.rejectWithValue(message)
+    }
+  }
+)
 //update task
 export const updateTask = createAsyncThunk(
   "tasks/updateTask",
@@ -283,6 +299,22 @@ const taskSlice = createSlice({
         state.tasks = action.payload;
       })
       .addCase(getTaskbyClient.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+        toast.error(action.payload);
+      })
+      .addCase(getTaskbyClientSku.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getTaskbyClientSku.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.isError = false;
+        console.log(action.payload);
+        state.tasks = action.payload;
+      })
+      .addCase(getTaskbyClientSku.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;

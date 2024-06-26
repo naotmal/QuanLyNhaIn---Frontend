@@ -42,6 +42,7 @@ import JobDetail from "./components/jobDetail/JobDetail";
 import AddDoJob from "./pages/addDoJob/AddDoJob";
 import EditDoJob from "./pages/editDoJob/EditDoJob";
 
+
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL = process.env.REACT_APP_BACKEND_URL
 
@@ -66,6 +67,8 @@ function App() {
         <Route path="/resetpassword/:resetToken" element={<Reset />} />
         <Route path="/register" element={<Register />} />
         <Route path="/forgotpassword/" element={<Forgot />} />
+       
+
 
         <Route path="/dashboard" element={
           <Sidebar>
