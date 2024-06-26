@@ -42,6 +42,7 @@ import JobDetail from "./components/jobDetail/JobDetail";
 import AddDoJob from "./pages/addDoJob/AddDoJob";
 import EditDoJob from "./pages/editDoJob/EditDoJob";
 import Home from "./pages/home/Home";
+import Statistic from "./pages/statistic/Statistic";
 
 
 
@@ -271,7 +272,13 @@ function App() {
             </Layout>
           </Sidebar>
         } />
-        
+        <Route path="/show-chart" element={
+          <Sidebar>
+            <Layout>
+              <Statistic />
+            </Layout>
+          </Sidebar>
+        } />
       </Routes>
 
 

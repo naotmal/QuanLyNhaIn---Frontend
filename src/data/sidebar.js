@@ -7,6 +7,7 @@ import { MdInventory } from "react-icons/md";
 import { FaUserTie } from "react-icons/fa6";
 import { FaTasks } from "react-icons/fa";
 import { FaTools } from "react-icons/fa";
+import { FaChartPie } from "react-icons/fa";
 
 const Adminmenu = [
   {
@@ -97,7 +98,11 @@ const Adminmenu = [
 
     ],
   },
-  
+  {
+    title: "Statistic",
+    icon: <FaChartPie />,
+    path: "/show-chart",
+  },
   {
     title: "Account",
     icon: <RiAccountCircleFill />,
@@ -169,16 +174,9 @@ const Salemenu = [
   {
     title: "Job",
     icon: <FaTools />,
-    childrens: [
-
-      {
-        role: "Product",
-        title: "Job list",
-        path: "/show-job",
-      },
-
-    ],
+    path: "/show-job",
   },
+  
   {
     title: "Client",
     icon: <FaUserTie />,
@@ -225,18 +223,10 @@ const Productmenu = [
   {
     title: "Task",
     icon: <FaTasks />,
-    childrens: [
-
-      {
-        role: "Product",
-        title: "Task list",
-        path: "/show-task",
-      },
-
-
-
-    ],
+    path: "/show-task",
   },
+  
+  
   {
     title: "Material",
     icon: <MdInventory />,
@@ -260,16 +250,9 @@ const Productmenu = [
   {
     title: "Job",
     icon: <FaTools />,
-    childrens: [
-
-      {
-        role: "Product",
-        title: "Job list",
-        path: "/show-job",
-      },
-
-    ],
+    path: "/show-job",
   },
+  
 
   {
     title: "Account",

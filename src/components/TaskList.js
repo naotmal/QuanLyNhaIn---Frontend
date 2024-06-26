@@ -153,7 +153,10 @@ const TaskList = ({ tasks, isLoading }) => {
               style={{maxHeight:"50px"}}
             >
               <option value="">All Progress</option>
+              <SaleLink>
               <option value="1">Not Started</option>
+              </SaleLink>
+              
               <option value="2">To Do</option>
               <option value="3">Doing</option>
               <option value="4">Done</option>
