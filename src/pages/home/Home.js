@@ -53,11 +53,17 @@ const Home = () => {
       }
 
       const obfuscateName = (name) => {
+        if (!name.includes(' ')) {
+            return name.charAt(0) + '*'.repeat(name.length - 1);
+        }
+    
         const nameParts = name.split(' ');
         const firstName = nameParts[0];
-        const obfuscatedPart = '*'.repeat(name.length - firstName.length);
-        return firstName + obfuscatedPart;
+        const lastName = nameParts[nameParts.length - 1];
+        const obfuscatedPart = '*'.repeat(firstName.length - 2);
+        return firstName.charAt(0) + obfuscatedPart + lastName;
     };
+    
 
     const obfuscatePhone = (str) => {
         if (str.length <= 4) {
