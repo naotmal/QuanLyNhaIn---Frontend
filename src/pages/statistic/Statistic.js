@@ -83,9 +83,13 @@ const Statistic = () => {
       '1': 'Not Started',
       '2': 'To Do',
       '3': 'Doing',
+      '4': 'Done',
     };
   
-    const progressCount = tasks.reduce((acc, task) => {
+    const filteredTasks = tasks.filter(task => task.progress !== 4);
+    console.log('Filtered Tasks:', filteredTasks); // Debugging: Check the filtered tasks
+
+    const progressCount = filteredTasks.reduce((acc, task) => {
       const progress = task.progress.toString(); // Convert to string if necessary
       if (!acc[progress]) {
         acc[progress] = 0;
@@ -93,7 +97,7 @@ const Statistic = () => {
       acc[progress] += 1;
       return acc;
     }, {});
-  
+    console.log(progressCount);
     return Object.keys(progressCount).map(progress => ({
       name: progressLabels[progress] || progress, // Use label if exists, else use progress value
       value: progressCount[progress],

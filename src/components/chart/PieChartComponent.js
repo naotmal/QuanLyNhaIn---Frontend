@@ -2,7 +2,7 @@ import React from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 
 const PieChartComponent = ({ data }) => {
-  const COLORS = ['#dfb265', '#2B2F38', '#a4a4a4'];
+  const COLORS = ['#dfb265', '#2B2F38', '#a4a4a4', '#eaeaea'];
 
   const RADIAN = Math.PI / 180;
   const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {

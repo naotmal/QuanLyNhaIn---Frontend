@@ -92,7 +92,7 @@ const ClientList = ({ clients, isLoading }) => {
         <span className="d-flex">
             <h3>Client list</h3>
             <SaleLink>
-            <Link className="--btn --btn-primary mt-2 mb-4" to={`/add-task`}>
+            <Link className="--btn --btn-primary mt-2 mb-4" to={`/add-client`}>
                 <IoMdAdd />
               </Link>
               </SaleLink>
